@@ -6,6 +6,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var direction;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -19,6 +20,7 @@ function Start() {
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
+	direction = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -106,26 +108,40 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
-				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 1) {
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 4) {
-				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
-				context.fill();
+			switch(board[i][j]){
+				case(2):{
+					context.beginPath();
+					context.arc(center.x, center.y, 30, (0.15 + 0.5*(direction - 1)) * Math.PI, (1.85 + 0.5*(direction - 1)) * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					
+					if(direction % 2 == 1){
+						context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+					}
+					else{
+						context.arc(center.x - 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
+					}
+
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
+				break;
+				case(1):{
+					context.beginPath();
+					context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
+				break;
+				case(4):{
+					context.beginPath();
+					context.rect(center.x - 30, center.y - 30, 60, 60);
+					context.fillStyle = "grey"; //color
+					context.fill();
+				}
+				break;
 			}
 		}
 	}
@@ -134,25 +150,35 @@ function Draw() {
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
-	if (x == 1) {
-		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
-			shape.j--;
+	switch(x){
+		case(1):{
+			direction = 4;
+			if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
+				shape.j--;
+			}
 		}
-	}
-	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
-			shape.j++;
+		break;
+		case(2):{
+			direction = 2;
+			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+				shape.j++;
+			}
 		}
-	}
-	if (x == 3) {
-		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
-			shape.i--;
+		break;
+		case(3):{
+			direction = 3;
+			if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
+				shape.i--;
+			}
 		}
-	}
-	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
-			shape.i++;
+		break;
+		case(4):{
+			direction = 1;
+			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+				shape.i++;
+			}
 		}
+		break;
 	}
 	if (board[shape.i][shape.j] == 1) {
 		score++;

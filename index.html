@@ -1,21 +1,80 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="styles.css">
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 	</head>
 
 	<body>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
+		<div class="header">
+
 		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
+
+		<div class="menu">
+			<div class="menu-box">
+				<a href="#" >Home</a>
+			</div>
+			<div class="menu-box">
+				<a href="#about" >About Me</a>
+			</div>
+			<div class="menu-box">
+				<a href="#photos" >My Photos</a>
+			</div>
+			<div class="menu-box">
+				<a href="#playlist" >My Playlist</a>
+			</div>
+			<div class="menu-box">
+				<a href="#like" >Like</a>
+			</div>
+			<div class="menu-box">
+				<a href="#qrcoder" >QR code</a>
+			</div>
+			<div class="menu-box">
+				<a href="#spa" >Q&A</a>
+			</div>
+			<div class="menu-box">
+				<a href="#contact" >Contact Me</a>
+			</div>
 		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
+
+		<div class="content">
+			<div id="welcome">
+
+
+			</div>
+			<div id="register">
+
+				
+			</div>
+			<div id="login">
+
+				
+			</div>
+			<div id="config">
+
+				
+			</div>
+			<div class="game">
+				<div class="data">
+					<div id="score" >
+						<label for="lblScore">SCORE:</label>
+						<input id="lblScore" type="text" />
+					</div>
+					<div id="time">
+						<label for="lblTime">TIME:</label>
+						<input id="lblTime" type="text" />
+					</div>
+				</div>
+				<div id="game">
+					<canvas id="canvas" height="600" width="600"></canvas>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="footer">
+			
 		</div>
 	</body>
 </html>

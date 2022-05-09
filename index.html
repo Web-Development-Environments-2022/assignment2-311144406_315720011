@@ -13,49 +13,67 @@
 
 		<div class="menu">
 			<div class="menu-box">
-				<a href="#" >Home</a>
+				<a onclick="showWelcome()">Welcome</a>
 			</div>
 			<div class="menu-box">
-				<a href="#about" >About Me</a>
+				<a onclick="showRegistration()">Register</a>
 			</div>
 			<div class="menu-box">
-				<a href="#photos" >My Photos</a>
+				<a onclick="showLogIn()">Log In</a>
 			</div>
 			<div class="menu-box">
-				<a href="#playlist" >My Playlist</a>
+				<a onclick="openAbout()">About</a>
 			</div>
-			<div class="menu-box">
-				<a href="#like" >Like</a>
-			</div>
-			<div class="menu-box">
-				<a href="#qrcoder" >QR code</a>
-			</div>
-			<div class="menu-box">
-				<a href="#spa" >Q&A</a>
-			</div>
-			<div class="menu-box">
-				<a href="#contact" >Contact Me</a>
-			</div>
+			<img src="header.jpg">
 		</div>
 
+		<dialog id="About">
+			<h2>About</h2>
+			<p>This is about</p>
+			<button onclick="closeAbout()">Close</button>
+		</dialog>
+
 		<div class="content">
-			<div id="welcome">
-
-
+			<div class="page" id="welcome" style="display: none;">
+				<button onclick="showLogIn()">Log In</button>
+				<button onclick="showRegistration()">Register</button>
 			</div>
-			<div id="register">
+
+			<div class="page" id="register" style="display: none;">
+
+				<div id="username" >
+					<label for="username">username:</label>
+					<input id="username" type="text" />
+				</div>
+				<div id="time">
+					<label for="password">password:</label>
+					<input id="password" type="text" />
+				</div>
+				
+				<button onclick="showGame()">Register</button>
+			</div>
+
+			<div class="page" id="login" style="display: none;">
+
+				<div id="username" >
+					<label for="username">username:</label>
+					<input id="username" type="text" />
+				</div>
+				<div id="time">
+					<label for="password">password:</label>
+					<input id="password" type="text" />
+				</div>
+				
+				<button onclick="showGame()">Log In</button>
+				
+			</div>
+
+			<div class="page" id="config" style="display: none;">
 
 				
 			</div>
-			<div id="login">
 
-				
-			</div>
-			<div id="config">
-
-				
-			</div>
-			<div class="game">
+			<div id="game" class="game" style="display: none;">
 				<div class="data">
 					<div id="score" >
 						<label for="lblScore">SCORE:</label>
@@ -66,7 +84,7 @@
 						<input id="lblTime" type="text" />
 					</div>
 				</div>
-				<div id="game">
+				<div id="board">
 					<canvas id="canvas" height="600" width="600"></canvas>
 				</div>
 			</div>
@@ -74,7 +92,7 @@
 		</div>
 
 		<div class="footer">
-			
+			<h3>Omer Tomer and Sons Inc</h3>
 		</div>
 	</body>
 </html>

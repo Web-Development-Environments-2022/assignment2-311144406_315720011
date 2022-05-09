@@ -7,10 +7,12 @@ var start_time;
 var time_elapsed;
 var interval;
 var direction;
+var currElement;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
-	Start();
+	currElement = document.getElementById("welcome");
+	currElement.style.display = "block";
 });
 
 function Start() {
@@ -195,4 +197,41 @@ function UpdatePosition() {
 	} else {
 		Draw();
 	}
+
+
 }
+
+function showWelcome() {
+	currElement.style.display = "none";
+	currElement = document.getElementById("welcome");
+	currElement.style.display = "block";
+}
+
+function showRegistration() {
+	currElement.style.display = "none";
+	currElement = document.getElementById("register");
+	currElement.style.display = "block";
+}
+
+function showLogIn() {
+	currElement.style.display = "none";
+	currElement = document.getElementById("login");
+	currElement.style.display = "block";
+}
+
+function showGame(){
+	currElement.style.display = "none";
+	currElement = document.getElementById("game");
+	currElement.style.display = "block";
+	Start();
+
+}
+
+function openAbout() {
+	document.getElementById("About").showModal();
+}
+
+function closeAbout() {
+	document.getElementById("About").close();
+}
+

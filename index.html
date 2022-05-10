@@ -4,6 +4,9 @@
 		<link rel="stylesheet" href="styles.css">
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	</head>
 
 	<body>
@@ -41,29 +44,29 @@
 
 			<div class="page" id="register" style="display: none;">
 
-				<div id="regUsername" >
+				<div>
 					<label for="regUsername">username:</label>
 					<input id="regUsername" type="text" />
 				</div>
-				<div id="regPassword">
+				<div>
 					<label for="regPassword">password:</label>
 					<input id="regPassword" type="text" />
 				</div>
-				<div id="regFullName">
+				<div>
 					<label for="regFullName">Full Name:</label>
 					<input id="regFullName" type="text" />
 				</div>
-				<div id="regEmail">
+				<div>
 					<label for="regEmail">Email:</label>
 					<input id="regEmail" type="text" />
 				</div>
-				<div id="refBirthDate">
+				<div>
 					<label for="refBirthDate">Birth Date:</label>
 					<input id="refBirthDate" type="text" />
 				</div>
 
-				
-				<button onclick="showGame()">Register</button>
+			
+				<button onclick="register()">Register</button>
 			</div>
 
 			<div class="page" id="login" style="display: none;">

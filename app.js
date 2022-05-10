@@ -1,4 +1,6 @@
 var context;
+
+//Game Board
 var shape = new Object();
 var board;
 var score;
@@ -7,9 +9,23 @@ var start_time;
 var time_elapsed;
 var interval;
 var direction;
+
+//DOM Control
 var currElement;
 
+//Log In and Registration
+var users = {};
+var username;
+var password;
+var fullName;
+var email;
+var birthDate;
+var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+
+
 $(document).ready(function() {
+	users["k"] = ["k", "K Mistirio", "K@kmail.kom", "1/1/90"];
 	context = canvas.getContext("2d");
 	currElement = document.getElementById("welcome");
 	currElement.style.display = "block";
@@ -245,10 +261,54 @@ function showRegistration() {
 	currElement.style.display = "block";
 }
 
+function register(){
+	username = document.getElementById("regUsername").value;
+	password = document.getElementById("regPassword").value;
+	fullName = document.getElementById("regFullName").value;
+	email = document.getElementById("regEmail").value;
+	birthDate = document.getElementById("refBirthDate").value;
+
+	if(username == '' || password == '' || fullName == '' || email == '' || birthDate == ''){
+		alert("Please enter all fields");
+	}
+	else if(users[username] != null){
+		alert("Username already exists");
+	}
+	else if(password.length < 6 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)){
+		alert("Password must be 6 characterslong and contain both numbers and letters");
+	}
+	else if(/\d/.test(fullName)){
+		alert("Name cannot contain numbers");
+	}
+	else if(!emailRegex.test(email)){
+		alert("Invalid email address");
+	}
+	else{
+		users[username] = [password, fullName, email, birthDate];
+		alert("User succesfully created");
+		showLogIn();
+	}
+}
+
+$(document).ready(function() {
+						  
+	$(function() {
+		$( "#refBirthDate" ).datepicker();
+	});
+})
+
 function showLogIn() {
 	currElement.style.display = "none";
 	currElement = document.getElementById("login");
 	currElement.style.display = "block";
+}
+
+function login(){
+	username = document.getElementById("logUsername").value;
+	password = document.getElementById("logPassword").value;
+	fullName = users[username][1];
+	email = users[username][2];
+	birthDate = users[username][3];
 }
 
 function showGame(){
@@ -259,9 +319,7 @@ function showGame(){
 
 }
 
-function login(){
-	currElement = document.getElementById("welcome");
-}
+
 
 function openAbout() {
 	document.getElementById("About").showModal();

@@ -10,7 +10,6 @@ TODO:
 5. create logic for Register and Log In
 6. create configurations and css
 7. music thread
-omer testing the readme
 
 
 

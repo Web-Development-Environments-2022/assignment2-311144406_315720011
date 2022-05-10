@@ -76,7 +76,7 @@ function Start() {
 
 				(i == 7 && j == 4) ||
 				(i == 8 && j == 4) ||
-				(i == 7 && j == 5) ||
+				(i == 9 && j == 4) ||
 				(i == 7 && j == 6) ||
 				(i == 8 && j == 6) ||
 				(i == 8 && j == 7) ||
@@ -306,10 +306,32 @@ function showLogIn() {
 function login(){
 	username = document.getElementById("logUsername").value;
 	password = document.getElementById("logPassword").value;
-	fullName = users[username][1];
-	email = users[username][2];
-	birthDate = users[username][3];
+	if(username == '' || password == ''){
+		alert("Please enter all fields");
+	}
+	else if(users[username] == null || users[username][0] != password){
+		alert("Invalid Username or Password");
+	}
+	else{
+		fullName = users[username][1];
+		email = users[username][2];
+		birthDate = users[username][3];
+		showConfig();
+	}
 }
+
+function showConfig(){
+	currElement.style.display = "none";
+	currElement = document.getElementById("config");
+	currElement.style.display = "block";
+}
+
+function saveConfig(){
+	showGame();
+}
+
+
+
 
 function showGame(){
 	currElement.style.display = "none";

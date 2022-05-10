@@ -71,21 +71,48 @@
 
 			<div class="page" id="login" style="display: none;">
 
-				<div id="logUsername" >
+				<div>
 					<label for="logUsername">username:</label>
 					<input id="logUsername" type="text" />
 				</div>
-				<div id="logPassword">
+				<div>
 					<label for="logPassword">password:</label>
 					<input id="logPassword" type="text" />
 				</div>
 				
-				<button onclick="showGame()">Log In</button>
+				<button onclick="login()">Log In</button>
 				
 			</div>
 
 			<div class="page" id="config" style="display: none;">
+				<div>
+					<label for="changeKey">Change Movement Keys:</label>
+					<input id="changeKeyUp" value="Up" type="button" />
+					<input id="changeKeyDown" value="Down" type="button" />
+					<input id="changeKeyLeft" value="Left" type="button" />
+					<input id="changeKeyRight" value="Right" type="button" />
+				</div>
+				<div>
+					<label for="ballAmount">Ball Amount:</label>
+					<input id="ballAmount" type="number" value="60" min="50" max="90" />
+				</div>
+				<div>
+					<label for="changeColor">Change Ball Color:</label>
+					<input id="color60Ball" value="Common" type="button" />
+					<input id="color30Ball" value="Rare" type="button" />
+					<input id="color10Ball" value="Legendary" type="button" />
+				</div>
+				<div>
+					<label for="gameTime">Time (in seconds):</label>
+					<input id="gameTime" type="number" value="300" min="60" max="3600" />
+				</div>
+				<div>
+					<label for="mobAmount">Number of Mobs:</label>
+					<input id="mobAmount" type="number" value="2" min="1" max="4" />
+				</div>
 
+				<button onclick="saveConfig()">Save Configurations</button>
+				<button onclick="RandomConfig()">Randomize</button>
 				
 			</div>
 

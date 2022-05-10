@@ -29,11 +29,43 @@ function Start() {
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
-				(i == 3 && j == 3) ||
+				(i == 1 && j == 1) ||
+				(i == 1 && j == 2) ||
+				(i == 1 && j == 3) ||
+				(i == 1 && j == 4) ||
+				(i == 1 && j == 6) ||
+				(i == 1 && j == 7) ||
+				(i == 1 && j == 8) ||
+
+				(i == 3 && j == 1) ||
+				(i == 3 && j == 2) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 3 && j == 6) ||
+				(i == 3 && j == 7) ||
+				(i == 3 && j == 8) ||
+
+				(i == 5 && j == 1) ||
+				(i == 5 && j == 2) ||
+				(i == 5 && j == 3) ||
+				(i == 5 && j == 4) ||
+				(i == 5 && j == 5) ||
+				(i == 5 && j == 6) ||
+				(i == 5 && j == 7) ||
+				(i == 5 && j == 9) ||
+
+				(i == 6 && j == 2) ||
+				(i == 7 && j == 2) ||
+				(i == 8 && j == 2) ||
+
+				(i == 7 && j == 4) ||
+				(i == 8 && j == 4) ||
+				(i == 7 && j == 5) ||
+				(i == 7 && j == 6) ||
+				(i == 8 && j == 6) ||
+				(i == 8 && j == 7) ||
+				(i == 8 && j == 8) ||
+				(i == 7 && j == 8)
 			) {
 				board[i][j] = 4;
 			} else {
@@ -225,6 +257,10 @@ function showGame(){
 	currElement.style.display = "block";
 	Start();
 
+}
+
+function login(){
+	currElement = document.getElementById("welcome");
 }
 
 function openAbout() {

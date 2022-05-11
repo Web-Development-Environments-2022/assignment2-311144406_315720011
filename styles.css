@@ -4,82 +4,88 @@ body {
     padding:0;
     width: 100%;
     height: 100%;
-	background: rgb(0, 35, 100);
 	color: white;
 	font-family: helvetica;
   }
+  .header{
+      position: fixed;
+     
+     
+      height: 5%;
+      width: 100%;
+      margin-left: 10%;
+      font-style: italic;
+      background-color: yellow;
+      color: yellow;
+      padding-left: 5%;
+      font-size: x-large;
+      
 
-
-    .menu{
-        position: fixed;
-        margin: 0;
-        padding:0;
-        width: 100%;
-        background-color: rgb(0, 0, 0);
-        z-index: 1;
-        
-    }
-
-    .menu .menu-box {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: rgb(0, 0, 0);
-        border:none;
-        display:inline-block;
-        padding:8px 4px;
-        vertical-align:middle;
-        overflow:hidden;
-        text-decoration:none;
-        color:inherit;
-        text-align:center;
-        cursor:pointer;
-        white-space:nowrap
-    }
-
-    .menu .menu-box a {
-        float: left;
-        color: #f2f2f2;
-        text-align: center;
-        vertical-align:middle;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-    }
-
-    .menu .menu-box a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    .menu img{
-        position: relative;
-        float: right;
-        padding-top: 0.5%;
-        padding-right: 1%;
-    }
-
+  }
+ 
+  .sidebar {
+    height: 100%;
+    width: 10%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+   
+  }
+  
+  /* Style sidebar links */
+   .sidebar a {
+    padding: 20%;
+    text-decoration: none;
+    font-size: 30px;
+    font-style: italic;
+    color: #818181;
+    display: block;
+  }
+  
+  
+   .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  .sidebar img{
+      
+      width: 100%;
+    
+  }
+ 
+  
+  /* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+   @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+    
 
     .content{
-        position: relative;
-        top: 9%;
+        position: fixed;
+        top: 5%;
         margin: 0;
         padding:0;
-        width: 100%;
-        height: 80%;
-        background-color: rgb(0, 35, 100);
+        width: 90%;
+        height: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-left: 10%;
+        background-image: url(wallpaper.webp);
+        bottom: 5%;
     }
 
         .page{
+           
             position: relative;
             margin: 0;
             padding:0;
             width: 100%;
             text-align: center;
+          
 
         }
 
@@ -110,11 +116,78 @@ body {
     .footer{
         position: fixed;
         bottom: 0;
+        height: 5%;
         width: 100%;
-        padding-top: 0.75%;
-        padding-bottom: 0.75%;
-        background-color: rgb(100, 0, 0);
-        color: white;
+    
+        background-color: yellow;
+        color: yellow;
         text-align: left;
         text-indent: 2%;
+        margin-left: 10%;
+      
     }
+    .glow-on-hover {
+        width: 350px;
+        height: 60px;
+        border: none;
+        outline: none;
+        color: white;
+        background: blue;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+        font-size: xx-large; 
+        font-style: italic;
+        margin-right: 7%;
+    }
+    
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left:-2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+    
+    .glow-on-hover:active {
+        color:blue
+    }
+    
+    .glow-on-hover:active:after {
+        background: transparent;
+    }
+    
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+    
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: blue
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+    
+    @keyframes glowing {
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
+    }
+
+
+    

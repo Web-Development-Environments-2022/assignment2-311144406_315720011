@@ -16,9 +16,9 @@ body {
       margin-left: 10%;
       font-style: italic;
       background-color: yellow;
-      color: yellow;
-      padding-left: 5%;
+      color: black;
       font-size: x-large;
+      text-align: center;
       
 
   }
@@ -30,8 +30,9 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color:#101010;
     overflow-x: hidden;
+    color: black;
    
   }
   
@@ -40,14 +41,15 @@ body {
     padding: 20%;
     text-decoration: none;
     font-size: 30px;
-    font-style: italic;
+    font-style: oblique;
     color: #818181;
     display: block;
   }
   
   
    .sidebar a:hover {
-    color: #f1f1f1;
+    color: black;
+    background-color:#FFE4C4;
   }
   .sidebar img{
       
@@ -74,7 +76,8 @@ body {
         justify-content: center;
         align-items: center;
         margin-left: 10%;
-        background-image: url(wallpaper.webp);
+        background-image: url(765443.jpg);
+        background-size: 100% 100%;
         bottom: 5%;
     }
 
@@ -88,6 +91,19 @@ body {
           
 
         }
+        .welcome-header{
+            color: #ffffb3;
+            font-size: 120px;
+            font-style:italic;
+            margin-top: -10%;
+           
+           
+            
+            
+        }
+        .alignRight {
+            float: right;
+          }
 
         .game{
             position: relative;
@@ -120,10 +136,11 @@ body {
         width: 100%;
     
         background-color: yellow;
-        color: yellow;
-        text-align: left;
-        text-indent: 2%;
+        color: black;
+      
+        
         margin-left: 10%;
+        
       
     }
     .glow-on-hover {
@@ -139,7 +156,7 @@ body {
         border-radius: 10px;
         font-size: xx-large; 
         font-style: italic;
-        margin-right: 7%;
+        margin-top: -1%;
     }
     
     .glow-on-hover:before {
@@ -177,7 +194,7 @@ body {
         position: absolute;
         width: 100%;
         height: 100%;
-        background: blue
+        background: blue;
         left: 0;
         top: 0;
         border-radius: 10px;
@@ -190,4 +207,134 @@ body {
     }
 
 
-    
+    .pacman {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #f2d648;
+        position: relative;
+        margin-left: 47%;
+
+      }
+      .pacman__eye {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        top: 20px;
+        right: 40px;
+        background: #333333;
+      }
+      .pacman__mouth {
+        background: #000;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+        animation-name: eat;
+        animation-duration: 0.7s;
+        animation-iteration-count: infinite;
+      }
+      @keyframes eat {
+        0% {
+          clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+        }
+        25% {
+          clip-path: polygon(100% 60%, 44% 48%, 100% 40%);
+        }
+        50% {
+          clip-path: polygon(100% 50%, 44% 48%, 100% 50%);
+        }
+        75% {
+         clip-path: polygon(100% 59%, 44% 48%, 100% 35%);
+        }
+        100% {
+         clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+        }
+      }
+      .pacman__food {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: #fff;
+        border-radius: 50%;
+        top: 40%;
+        left: 120px;
+        animation-name: food;
+        animation-duration: 0.7s;
+        animation-iteration-count: infinite;
+      }
+      @keyframes food {
+        0% {
+          transform: translateX(0);
+            opacity: 1;
+        }
+        100% {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+      }
+      input {
+        text-align: center;
+        background-color: #ECF0F1;
+        border: 2px solid transparent;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 200;
+        padding: 10px 0;
+        width: 250px;
+        transition: border .5s;
+        }
+        
+        input:focus {
+        border: 2px solid #3498DB;
+        box-shadow: none;
+        }
+    .login{
+        height: 50%;
+        width: 20%;
+        background-image: url(back-login.jpg);
+        background-size: 100% 100%;
+        background-position: center;
+    }
+    .login h2{
+        font-weight: normal;
+        font-size: larger;
+        text-align: center;
+        margin-bottom: 3%;
+    }
+    .input-box{
+        width: 100%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 6px 0;
+        height: 32px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        font-size: larger;
+
+
+    }
+    ::placeholder{
+        color: #fff;
+        font-size: 12px;
+    }
+    .but{
+        width: 100%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 25px 0;
+        height: 32px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: x-large;
+    }

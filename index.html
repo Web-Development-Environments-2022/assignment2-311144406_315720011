@@ -33,7 +33,19 @@
 
 		<div class="content">
 			<div class="page" id="welcome" style="display: none;">
+				<h1 class="welcome-header">
+					Welcome to Pacman
+					<div class="pacman">
+						<div class="pacman__eye"></div>
+						<div class="pacman__mouth"></div>
+						<div class="pacman__food"></div>
+					  </div>
+
+				</h1>
 				<button onclick="showLogIn()" class="glow-on-hover">Log In</button>
+				<br/>
+				<br/>
+				<br/>
 				<button onclick="showRegistration()" class="glow-on-hover">Register</button>
 			</div>
 
@@ -64,18 +76,17 @@
 				<button onclick="register()" class="glow-on-hover">Register</button>
 			</div>
 
-			<div class="page" id="login" style="display: none;">
-
+			<div class="login" id="login" style="display: none;">
+				<h1 style="text-align: center;">Login</h1>
 				<div>
-					<label for="logUsername">username:</label>
-					<input id="logUsername" type="text" />
+					
+					<input id="logUsername" class="input-box" type="text" placeholder="Your Username" />
 				</div>
 				<div>
-					<label for="logPassword">password:</label>
-					<input id="logPassword" type="text" />
+					<input id="logPassword" class="input-box" type="text" placeholder="Your Password"/>
 				</div>
 				
-				<button onclick="login()" class="glow-on-hover">Log In</button>
+				<button onclick="login()" class="but">Log In</button>
 				
 			</div>
 
@@ -130,7 +141,9 @@
 		</div>
 
 		<div class="footer">
-			<h3>Omer Tomer and Sons Inc</h3>
+			<h1>tom and omer inc.</h1>
+			
+  			
 		</div>
 	</body>
 </html>

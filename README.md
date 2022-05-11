@@ -3,19 +3,13 @@
  
 TODO:
 
-1. css Welcome page
-2. css Register and Log In pages
-3. write and maybe css About page
-4. write and css footer
-5. create logic for Register and Log In
-6. create configurations and css
-7. music thread
-
-
+css pages and about
+implment configurations
+music thread
 
 game logic and features:
 
 enemy ghosts
 random moving prize
 walls css
-candy types
+

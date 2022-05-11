@@ -22,6 +22,18 @@ var email;
 var birthDate;
 var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
+//Configurations
+var keyUp;
+var keyDown;
+var keyLeft;
+var keyRight;
+var color60Ball;
+var color30Ball;
+var color10Ball;
+var ballAmount;
+var gameTime;
+var mobAmount;
+
 
 
 $(document).ready(function() {
@@ -110,14 +122,14 @@ function Start() {
 	addEventListener(
 		"keydown",
 		function(e) {
-			keysDown[e.keyCode] = true;
+			keysDown[e] = true;
 		},
 		false
 	);
 	addEventListener(
 		"keyup",
 		function(e) {
-			keysDown[e.keyCode] = false;
+			keysDown[e] = false;
 		},
 		false
 	);
@@ -321,12 +333,56 @@ function login(){
 }
 
 function showConfig(){
+	color60Ball = "yellow";
+	color30Ball = "red";
+	color10Ball = "black";
+	keyUp;
+	keyDown;
+	keyLeft;
+	keyRight;
+	
 	currElement.style.display = "none";
 	currElement = document.getElementById("config");
 	currElement.style.display = "block";
 }
 
+function changeKeyUp(){
+
+}
+
+function changeKeyDwon(){
+	
+}
+
+function changeKeyLeft(){
+	
+}
+
+function changeKeyRight(){
+	
+}
+
+function changeColor60(){
+	
+}
+
+function changeColor30(){
+	
+}
+
+function changeColor10(){
+	
+}
+
+function RandomConfig(){
+	
+}
+
+
 function saveConfig(){
+	ballAmount = document.getElementById("ballAmount").value;
+	gameTime = document.getElementById("gameTime").value;
+	mobAmount = document.getElementById("mobAmount").value;
 	showGame();
 }
 

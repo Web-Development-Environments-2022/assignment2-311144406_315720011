@@ -27,6 +27,12 @@
 			<div class="menu-box">
 				<a onclick="openAbout()">About</a>
 			</div>
+
+			<!-- To Remove -->
+			<div class="menu-box">
+				<a onclick="backDoor()">Back Door</a>
+			</div>
+
 			<img src="header.jpg">
 		</div>
 
@@ -86,21 +92,40 @@
 
 			<div class="page" id="config" style="display: none;">
 				<div>
-					<label for="changeKey">Change Movement Keys:</label>
-					<input id="changeKeyUp" value="Up" type="button" onclick="changeKeyUp()"/>
-					<input id="changeKeyDown" value="Down" type="button" onclick="changeKeyDown()" />
-					<input id="changeKeyLeft" value="Left" type="button" onclick="changeKeyLeft()"/>
-					<input id="changeKeyRight" value="Right" type="button" onclick="changeKeyRight()"/>
+					<div>
+						<label for="changeKey">Change Movement Keys:</label>
+					</div>
+					<div>
+						<label for="changeKeyUp">Key for Up:</label>
+						<input id="changeKeyUp" value="Up" type="button" onclick="changeKeyUp()"/>
+					</div>
+					<div>
+						<label for="changeKeyUp">Key for Down:</label>
+						<input id="changeKeyDown" value="Down" type="button" onclick="changeKeyDown()" />
+					</div>
+					<div>
+						<label for="changeKeyUp">Key for Left:</label>
+						<input id="changeKeyLeft" value="Left" type="button" onclick="changeKeyLeft()"/>
+					</div>
+					<div>
+						<label for="changeKeyUp">Key for Right:</label>
+						<input id="changeKeyRight" value="Right" type="button" onclick="changeKeyRight()"/>
+					</div>
 				</div>
+				<br>
+
+				<div>
+					<label for="changeColor">Change Ball Color:</label>
+				</div>
+				<div>
+					<input id="color60Ball" value="Legendary" type="button" onclick="changeColor60()" />
+					<input id="color30Ball" value="Rare" type="button" onclick="changeColor30()"/>
+					<input id="color10Ball" value="Common" type="button" onclick="changeColor10()"/>
+				</div>
+				<br>
 				<div>
 					<label for="ballAmount">Ball Amount:</label>
 					<input id="ballAmount" type="number" value="60" min="50" max="90" />
-				</div>
-				<div>
-					<label for="changeColor">Change Ball Color:</label>
-					<input id="color60Ball" value="Common" type="button" />
-					<input id="color30Ball" value="Rare" type="button" />
-					<input id="color10Ball" value="Legendary" type="button" />
 				</div>
 				<div>
 					<label for="gameTime">Time (in seconds):</label>
@@ -110,25 +135,85 @@
 					<label for="mobAmount">Number of Mobs:</label>
 					<input id="mobAmount" type="number" value="2" min="1" max="4" />
 				</div>
+				<br>
 
 				<button onclick="saveConfig()">Save Configurations</button>
 				<button onclick="RandomConfig()">Randomize</button>
 				
 			</div>
 
+
+
+
 			<div id="game" class="game" style="display: none;">
+
+				<div class="gameDetails">
+					<h1 id="fullName"></h1>
+
+					<div>
+						<label for="changeKey">Movement Keys:</label>
+					</div>
+					<div>
+						<label for="InfoKeyUp">Key for Up:</label>
+						<input id="InfoKeyUp" value="Up" type="button" />
+					</div>
+					<div>
+						<label for="InfoKeyDown">Key for Down:</label>
+						<input id="InfoKeyDown" value="Down" type="button"  />
+					</div>
+					<div>
+						<label for="InfoKeyLeft">Key for Left:</label>
+						<input id="InfoKeyLeft" value="Left" type="button" />
+					</div>
+					<div>
+						<label for="InfoKeyRight">Key for Right:</label>
+						<input id="InfoKeyRight" value="Right" type="button" />
+					</div>
+					<br>
+
+					<div>
+						<label for="changeColor">Ball Color:</label>
+					</div>
+					<div>
+						<input id="Infocolor60Ball" value="Legendary" type="button" />
+						<input id="Infocolor30Ball" value="Rare" type="button" />
+						<input id="Infocolor10Ball" value="Common" type="button" />
+					</div>	
+					<br>
+
+					<div>
+						<label for="InfoballAmount">Ball Amount:</label>
+						<input id="InfoballAmount" type="button" value="60" />
+					</div>
+					<div>
+						<label for="InfogameTime">Total Game Time:</label>
+						<input id="InfogameTime" type="button" value="300" />
+					</div>
+					<div>
+						<label for="InfomobAmount">Number of Mobs:</label>
+						<input id="InfomobAmount" type="button" value="2" />
+					</div>
+					
+				</div>
+
+
+
 				<div class="data">
 					<div id="score" >
 						<label for="lblScore">SCORE:</label>
 						<input id="lblScore" type="text" />
 					</div>
 					<div id="time">
-						<label for="lblTime">TIME:</label>
-						<input id="lblTime" type="text" />
+						<label for="timeLeft">TIME:</label>
+						<input id="timeLeft" type="text" />
+					</div>
+					<div>
+						<label for="ballNumber">BALLS:</label>
+						<input id="ballNumber" type="text" />
 					</div>
 				</div>
 				<div id="board">
-					<canvas id="canvas" height="600" width="600"></canvas>
+					<canvas id="canvas" height="600" width="1200"></canvas>
 				</div>
 			</div>
 

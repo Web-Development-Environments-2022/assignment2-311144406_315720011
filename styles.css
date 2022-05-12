@@ -341,8 +341,8 @@ body {
         border: 2px solid #3498DB;
         box-shadow: none;
         }
-    .login{
-        height: 50%;
+    .register{
+        height: 60%;
         width: 30%;
         background-image: url(back-login.jpg);
         background-size: 100% 100%;
@@ -350,12 +350,12 @@ body {
         margin-top: -10%;
 
     }
-    .login h1{
+    .register h1{
         font-weight: 500;
         font-size:50px;
         text-align: center;
         margin-bottom: 3%;
-        color: #ffffb3;s
+        color: #ffffb3;
     }
     .input-box{
         width: 100%;
@@ -376,6 +376,7 @@ body {
     ::placeholder{
         color: #fff;
         font-size: 12px;
+        opacity:40%;
     }
     .but{
         width: 100%;
@@ -434,6 +435,22 @@ body {
     }
     .submit:hover{
         background:#333333;
+    }
+    .login{
+        height: 40%;
+        width: 30%;
+        background-image: url(back-login.jpg);
+        background-size: 100% 100%;
+        background-position: center;
+        margin-top: -10%;
+
+    }
+    .login h1{
+        font-weight: 500;
+        font-size:50px;
+        text-align: center;
+        margin-bottom: 3%;
+        color: #ffffb3;
     }
   
  

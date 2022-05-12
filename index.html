@@ -10,7 +10,8 @@
 	</head>
 
 	<body>
-		
+
+
 
 		<div class="sidebar">
 			<img src="pacman.png">
@@ -20,21 +21,31 @@
 			<a onclick="showLogIn()">Log In</a>
 			<a onclick="openAbout()">About</a>
 			
-		</div>
+		</div> 
 		<div class="header">
-			Pacman by Omer Maimon and Tomer Weitzman
+			<div class="logo-container"><h1>PA<span>C</span>MAN</h1></div>
+			<div class="info">Pacman by Omer Maimon and Tomer Weitzman</div>
+			
+			
+		
 		</div>
 
-		<dialog id="About">
-			<h2>About</h2>
-			<p>This is about</p>
-			<button onclick="closeAbout()">Close</button>
+		<dialog id="About" class="About">
+			<img src="header.jpg">
+
+			<h1>About</h1>
+			<p>This game was created by Omer Maimon and Tomer Weitzman.
+			the challenges we faced in creating this game are the use of javascript and html together. Designing a webpage and game dynamiclly
+				 was hard to implement because we need to think of how to make the game look very smooth without people noticing the various changes happening all the time.</p>
+			
+			<button onclick="closeAbout()" class="submit">Close</button>
 		</dialog>
 
 		<div class="content">
 			<div class="page" id="welcome" style="display: none;">
 				<h1 class="welcome-header">
-					Welcome to Pacman
+
+					Welcome to Pa<span>C</span>man
 					<div class="pacman">
 						<div class="pacman__eye"></div>
 						<div class="pacman__mouth"></div>
@@ -73,7 +84,7 @@
 				</div>
 
 			
-				<button onclick="register()" class="but">Register</button>
+				<button onclick="register()" class="submit">Register</button>
 			</div>
 
 			<div class="login" id="login" style="display: none;">
@@ -86,7 +97,7 @@
 					<input id="logPassword" class="input-box" type="text" placeholder="Your Password"/>
 				</div>
 				
-				<button onclick="login()" class="but">Log In</button>
+				<button onclick="login()" class="submit">Log In</button>
 				
 			</div>
 
@@ -141,7 +152,10 @@
 		</div>
 
 		<div class="footer">
-			<h3>tomer and omer inc.</h3>
+			<p style="text-align: left; width:49%; display: inline-block;">2022 All Copyrights reserved to Tomer and Omer inc.</p>
+			<p style="text-align: right; width:40%;  display: inline-block; ">Contact us &#128231;: omermaimon2@gmail.com</p>
+			
+	
 			
   			
 		</div>

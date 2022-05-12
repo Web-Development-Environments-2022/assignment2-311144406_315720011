@@ -15,12 +15,54 @@ body {
       width: 100%;
       margin-left: 10%;
       font-style: italic;
-      background-color: yellow;
-      color: black;
+      background-color: black;
+      color: wheat;
       font-size: x-large;
-      text-align: center;
+     
       
 
+  }
+     
+     
+     
+ 
+  .logo-container{
+      height: 100%;
+      display: table;
+      float: left;
+  }
+  .logo-container h1{
+    color: wheat;
+      height: 100%;
+      display: table-cell;
+      vertical-align: middle;
+      font-family: 'Montserrat';
+      font-size: larger;
+      font-weight: 100;
+
+
+  }
+  .logo-container h1 span{
+      font-weight: 1000;
+      font-size: xx-large;
+      color: white;
+  }
+  .info{
+      float: right;
+      height: 100%;
+      font-size: larger;
+      font-family: 'Montserrat';
+      color: wheat;
+      vertical-align: middle;
+      margin-right: 10%;
+
+  }
+  .header image{
+      float: right;
+      height: 5%;
+      width: 100%;
+      background-size: 100% 100%;
+      background-position: center;
   }
  
   .sidebar {
@@ -30,7 +72,9 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color:#101010;
+    background-color:
+    
+    #203344;
     overflow-x: hidden;
     color: black;
    
@@ -40,10 +84,13 @@ body {
    .sidebar a {
     padding: 20%;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 35px;
     font-style: oblique;
     color: #818181;
     display: block;
+    font-family: 'Montserrat';
+    border-style:solid;
+    border-color: #000;
   }
   
   
@@ -97,14 +144,16 @@ body {
             font-size: 120px;
             font-style:italic;
             margin-top: -10%;
+            font-weight: 200;
            
            
             
             
         }
-        .alignRight {
-            float: right;
-          }
+        .welcome-header span{
+            font-weight:bold;
+            color: white;
+        }
 
         .game{
             position: relative;
@@ -136,9 +185,10 @@ body {
         height: 5%;
         width: 100%;
     
-        background-color: yellow;
-        color: black;
-      
+        background-color: black;
+        color: wheat;
+        font-family: 'Montserrat';
+        font-size: larger;
         
         margin-left: 10%;
         
@@ -298,12 +348,14 @@ body {
         background-size: 100% 100%;
         background-position: center;
         margin-top: -10%;
+
     }
     .login h1{
-        font-weight: normal;
-        font-size: xx-large;
+        font-weight: 500;
+        font-size:50px;
         text-align: center;
         margin-bottom: 3%;
+        color: #ffffb3;s
     }
     .input-box{
         width: 100%;
@@ -340,3 +392,48 @@ body {
         cursor: pointer;
         font-size: x-large;
     }
+    .About{
+        height: 30%;
+        width: 30%;
+
+        background-color:#1C1C1C;
+
+    }
+    .About h1{
+        text-align: center;
+        margin-top: -7%;
+        color: #ffffb3;
+    }
+    .About p{
+        text-align: left;
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-style: italic;
+        color: #818181;
+        
+    }
+    .About image{
+       
+        width: 100%;
+       text-align: center;
+    }
+    .submit{
+        width: 100%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 25px 0;
+        height: 32px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: x-large;
+    }
+    .submit:hover{
+        background:#333333;
+    }
+  
+ 

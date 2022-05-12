@@ -348,6 +348,9 @@ body {
         background-size: 100% 100%;
         background-position: center;
         margin-top: -10%;
+        border-color:#A0A0A0;
+        border-style: solid;
+        border-width: thin;
 
     }
     .register h1{
@@ -439,10 +442,14 @@ body {
     .login{
         height: 40%;
         width: 30%;
+      
         background-image: url(back-login.jpg);
         background-size: 100% 100%;
         background-position: center;
         margin-top: -10%;
+        border-color:#A0A0A0;
+        border-style: solid;
+        border-width: thin;
 
     }
     .login h1{

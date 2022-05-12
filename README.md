@@ -3,13 +3,18 @@
  
 TODO:
 
-css pages and about
 implment configurations
 music thread
+fix placeholder opacity
+css configurations
+fix registration location
+fix configurations location during game
 
 game logic and features:
 
-enemy ghosts
 random moving prize
+mobs slide animation
+enemy ghosts
+
 walls css
 

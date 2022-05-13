@@ -480,5 +480,91 @@ body {
         margin-bottom: 3%;
         color: #ffffb3;
     }
+    .config{
+        height: 90%;
+        width: 45%;
+      
+        background-image: url(back-login.jpg);
+        background-size: 100% 100%;
+        background-position: center;
+        margin-top: 1%;
+        border-color:#A0A0A0;
+        border-style: solid;
+        border-width: thin;
+
+    }
+    .config h1{
+        font-weight: 500;
+        font-size:  35px;
+        text-align: center;
+        color: #ffffb3;
+      
+        
+    }
+    .config h2{
+        font-weight: 500;
+        font-size:20px;
+        text-align: left;
+        margin-bottom: 3%;
+        color: darkgray;
+        text-align: center;
+    }
+    .config label{
+        font-weight: 200;
+        font-size:large;
+        text-align: center;
+      
+        color: darkgray;
+    }
+    .input-box-config{
+        width:30%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 6px 0;
+        height: 30px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        font-size: larger;
+
+
+    }
+    .but-config{
+        width: 40%;
+        border:1px solid #fff;
+        margin-left: 5%;
+        height: 25px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: large;
+        color: #000;
+        background-color: gray;
+
+    }
+    .input-box-config-ball{
+        width:30%;
+        background: transparent;
+        border:1px solid #fff;
+        margin-left: 2%;
+        height: 30px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        outline: none;
+        box-sizing: border-box;
+        font-size: larger;
+
+
+    }
+  
+
   
  

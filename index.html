@@ -103,55 +103,56 @@
 				
 			</div>
 
-			<div class="page" id="config" style="display: none;">
+			<div class="config" id="config" style="display: none;">
 				<div>
+					<h1>Game Configurations</h1>
 					<div>
-						<label for="changeKey">Change Movement Keys:</label>
+						<h2>Change Movement Keys:</h2>
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Up:</label>
-						<input id="changeKeyUp" value="Up" type="button" onclick="changeKeyUp()"/>
+						<input id="changeKeyUp" class="input-box-config" value="Up" type="button" onclick="changeKeyUp()"/>
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Down:</label>
-						<input id="changeKeyDown" value="Down" type="button" onclick="changeKeyDown()" />
+						<input id="changeKeyDown" class="input-box-config" value="Down" type="button" onclick="changeKeyDown()" />
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Left:</label>
-						<input id="changeKeyLeft" value="Left" type="button" onclick="changeKeyLeft()"/>
+						<input id="changeKeyLeft" class="input-box-config" value="Left" type="button" onclick="changeKeyLeft()"/>
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Right:</label>
-						<input id="changeKeyRight" value="Right" type="button" onclick="changeKeyRight()"/>
+						<input id="changeKeyRight" class="input-box-config" value="Right" type="button" onclick="changeKeyRight()"/>
 					</div>
 				</div>
 				<br>
 
 				<div>
-					<label for="changeColor">Change Ball Color:</label>
+					<h2>Change Ball Color:</h2>
 				</div>
 				<div>
-					<input id="color60Ball" value="Legendary" type="button" onclick="changeColor60()" />
-					<input id="color30Ball" value="Rare" type="button" onclick="changeColor30()"/>
-					<input id="color10Ball" value="Common" type="button" onclick="changeColor10()"/>
+					<input id="color60Ball" class="input-box-config-ball"  value="Legendary" type="button" onclick="changeColor60()" />
+					<input id="color30Ball" class="input-box-config-ball"  value="Rare" type="button" onclick="changeColor30()"/>
+					<input id="color10Ball" class="input-box-config-ball"  value="Common" type="button" onclick="changeColor10()"/>
 				</div>
 				<br>
 				<div>
 					<label for="ballAmount">Ball Amount:</label>
-					<input id="ballAmount" type="number" value="60" min="50" max="90" />
+					<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" />
 				</div>
 				<div>
 					<label for="gameTime">Time (in seconds):</label>
-					<input id="gameTime" type="number" value="300" min="60" max="3600" />
+					<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" />
 				</div>
 				<div>
 					<label for="mobAmount">Number of Mobs:</label>
-					<input id="mobAmount" type="number" value="2" min="1" max="4" />
+					<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" />
 				</div>
 				<br>
 
-				<button onclick="saveConfig()" class="glow-on-hover">Save Configurations</button>
-				<button onclick="RandomConfig()" class="glow-on-hover">Randomize</button>
+				<button onclick="saveConfig()" class="but-config">Save Configurations</button>
+				<button onclick="RandomConfig()" class="but-config">Randomize</button>
 				
 			</div>
 

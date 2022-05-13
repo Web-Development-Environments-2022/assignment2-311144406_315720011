@@ -139,15 +139,15 @@
 				<br>
 				<div>
 					<label for="ballAmount">Ball Amount:</label>
-					<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" />
+					<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" onkeyup="enforceMinMax(this)"/>
 				</div>
 				<div>
 					<label for="gameTime">Time (in seconds):</label>
-					<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" />
+					<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" onkeyup="enforceMinMax(this)"/>
 				</div>
 				<div>
 					<label for="mobAmount">Number of Mobs:</label>
-					<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" />
+					<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" onkeyup="enforceMinMax(this)" />
 				</div>
 				<br>
 

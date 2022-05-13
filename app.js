@@ -2,10 +2,33 @@ var context;
 
 //Game Board
 var pacman = new Object();
+
 var prize = new Object();
 var prizeImg = new Image();
 prizeImg.src =  'prize.png';
 var prizeMove = false;
+
+var ghostRed = new Object();
+var ghostRedImg = new Image();
+ghostRedImg.src =  'ghostRedRight.png';
+var ghostRedMove = false;
+
+var ghostBlue = new Object();
+var ghostBlueImg = new Image();
+ghostBlueImg.src =  'ghostBlueRight.png';
+var ghostBlueMove = false;
+
+var ghostOrange = new Object();
+var ghostOrangeImg = new Image();
+ghostOrangeImg.src =  'ghostOrangeRight.png';
+var ghostOrangeMove = false;
+
+var ghostPink = new Object();
+var ghostPinkImg = new Image();
+ghostPinkImg.src =  'ghostPinkRight.png';
+var ghostPinkMove = false;
+
+var boardMemory = {6:0, 7:0, 8:0, 9:0};
 var board;
 var score;
 var pac_color;
@@ -158,6 +181,41 @@ function Start() {
 	prize.i = emptyCell[0];
 	prize.j = emptyCell[1];
 
+	//Set Red Ghost
+	emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
+	freeCells.splice(freeCells.indexOf(emptyCell),1);
+	board[emptyCell[0]][emptyCell[1]] = 7;
+	ghostRed.i = emptyCell[0];
+	ghostRed.j = emptyCell[1];
+
+	//Set Blue Ghost
+	if(mobAmount >= 2){
+		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
+		freeCells.splice(freeCells.indexOf(emptyCell),1);
+		board[emptyCell[0]][emptyCell[1]] = 8;
+		ghostBlue.i = emptyCell[0];
+		ghostBlue.j = emptyCell[1];
+	}
+
+
+	//Set Orange Ghost
+	if(mobAmount >= 3){
+		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
+		freeCells.splice(freeCells.indexOf(emptyCell),1);
+		board[emptyCell[0]][emptyCell[1]] = 9;
+		ghostOrange.i = emptyCell[0];
+		ghostOrange.j = emptyCell[1];
+	}
+
+	//Set Pink Ghost
+	if(mobAmount == 4){
+		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
+		freeCells.splice(freeCells.indexOf(emptyCell),1);
+		board[emptyCell[0]][emptyCell[1]] = 10;
+		ghostPink.i = emptyCell[0];
+		ghostPink.j = emptyCell[1];
+	}
+
 	//Set Balls
 	while (freeCells.length > 0 && food_remain > 0) {
 		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)];
@@ -252,23 +310,40 @@ function Draw() {
 				break;
 				//wall
 				case(5):{
-					// context.beginPath();
-					// context.rect(center.x - 30, center.y - 30, 60, 60);
-					roundedRect(context, center.x - 30, center.y - 30, 60, 60, 15)
-					// context.fillStyle = "grey"; //color
-					// context.fill();
+					draWall(context, center.x - 30, center.y - 30, 60, 60, 15)
 				}
 				break;
 				//prize
 				case(6):{
 					context.drawImage(prizeImg, center.x - 30, center.y - 30, 60, 60);
 				}
+				break;
+				//Red Ghost
+				case(7):{
+					context.drawImage(ghostRedImg, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
+				//Blue Ghost
+				case(8):{
+					context.drawImage(ghostBlueImg, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
+				//Orange Ghost
+				case(9):{
+					context.drawImage(ghostOrangeImg, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
+				//Pink Ghost
+				case(10):{
+					context.drawImage(ghostPinkImg, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
 			}
 		}
 	}
 }
 
-function roundedRect(ctx, x, y, width, height, radius) {
+function draWall(ctx, x, y, width, height, radius) {
 	ctx.beginPath();
 	ctx.moveTo(x, y + radius);
 	ctx.arcTo(x, y + height, x + radius, y + height, radius);
@@ -301,9 +376,15 @@ function UpdatePosition() {
 	board[pacman.i][pacman.j] = 1;
 
 	if(board[prize.i][prize.j] == 6 && prizeMove == true){
-		board[prize.i][prize.j] = 0;
+		board[prize.i][prize.j] = boardMemory[6];
 		handlePrizeMove();
-		board[prize.i][prize.j] = 6
+		if (board[prize.i][prize.j] == 1){
+			score += 50;
+		}
+		else{
+			boardMemory[6] = board[prize.i][prize.j];
+			board[prize.i][prize.j] = 6;
+		}
 	}
 	prizeMove = !prizeMove;
 	var currentTime = new Date();
@@ -503,8 +584,17 @@ function showConfig(){
 	currElement.style.display = "none";
 	currElement = document.getElementById("config");
 	currElement.style.display = "block";
+}
 
-
+function enforceMinMax(element){
+	if(element.value != ""){
+		if(parseInt(element.value) < parseInt(element.min)){
+			element.value = element.min;
+		}
+		if(parseInt(element.value) > parseInt(element.max)){
+			element.value = element.max;
+		}
+	}
 }
 
 function changeKeyUp(){

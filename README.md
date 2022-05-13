@@ -11,11 +11,9 @@ lock zoom change - game does not respond to zoom scroll
 fix top left logo
 
 TODO Tomer:
-
-fix configurations text color change
-random moving prize
-mobs slide animation
+mobs slide animation - add miliseconds counter and use % to specify events
 enemy ghosts
+
 
 
 Todo:

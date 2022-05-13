@@ -1,7 +1,11 @@
 var context;
 
 //Game Board
-var shape = new Object();
+var pacman = new Object();
+var prize = new Object();
+var prizeImg = new Image();
+prizeImg.src =  'prize.png';
+var prizeMove = false;
 var board;
 var score;
 var pac_color;
@@ -144,8 +148,15 @@ function Start() {
 	var emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
 	freeCells.splice(freeCells.indexOf(emptyCell),1);
 	board[emptyCell[0]][emptyCell[1]] = 1;
-	shape.i = emptyCell[0];
-	shape.j = emptyCell[1];
+	pacman.i = emptyCell[0];
+	pacman.j = emptyCell[1];
+
+	//Set Prize
+	emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
+	freeCells.splice(freeCells.indexOf(emptyCell),1);
+	board[emptyCell[0]][emptyCell[1]] = 6;
+	prize.i = emptyCell[0];
+	prize.j = emptyCell[1];
 
 	//Set Balls
 	while (freeCells.length > 0 && food_remain > 0) {
@@ -183,24 +194,6 @@ function Start() {
 }
 
 
-function GetKeyPressed() {
-	//Up - default 38
-	if (keysDown[keyUp]) {
-		return 1;
-	}
-	//Down - default 40
-	if (keysDown[keyDown]) {
-		return 2;
-	}
-	//Left - default 37
-	if (keysDown[keyLeft]) {
-		return 3;
-	}
-	//Right - default 39
-	if (keysDown[keyRight]) {
-		return 4;
-	}
-}
 
 function Draw() {
 	canvas.width = canvas.width; //clean board
@@ -236,7 +229,7 @@ function Draw() {
 				//10 ball
 				case(2):{
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+					context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
 					context.fillStyle = colors[color10Ball]; //color Common Ball
 					context.fill();
 				}
@@ -244,7 +237,7 @@ function Draw() {
 				//30 ball
 				case(3):{
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+					context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
 					context.fillStyle = colors[color30Ball]; //color Rare Ball
 					context.fill();
 				}
@@ -252,70 +245,67 @@ function Draw() {
 				//60 ball
 				case(4):{
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+					context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
 					context.fillStyle = colors[color60Ball]; //color Legendary Ball
 					context.fill();
 				}
 				break;
 				//wall
 				case(5):{
-					context.beginPath();
-					context.rect(center.x - 30, center.y - 30, 60, 60);
-					context.fillStyle = "grey"; //color
-					context.fill();
+					// context.beginPath();
+					// context.rect(center.x - 30, center.y - 30, 60, 60);
+					roundedRect(context, center.x - 30, center.y - 30, 60, 60, 15)
+					// context.fillStyle = "grey"; //color
+					// context.fill();
 				}
 				break;
+				//prize
+				case(6):{
+					context.drawImage(prizeImg, center.x - 30, center.y - 30, 60, 60);
+				}
 			}
 		}
 	}
 }
 
+function roundedRect(ctx, x, y, width, height, radius) {
+	ctx.beginPath();
+	ctx.moveTo(x, y + radius);
+	ctx.arcTo(x, y + height, x + radius, y + height, radius);
+	ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
+	ctx.arcTo(x + width, y, x + width - radius, y, radius);
+	ctx.arcTo(x, y, x, y + radius, radius);
+	context.fillStyle = "grey"; //color
+	context.fill();
+	ctx.stroke();
+  }
+
 function UpdatePosition() {
-	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	switch(x){
-		case(1):{
-			direction = 4;
-			if (shape.j > 0 && board[shape.i][shape.j - 1] != 5) {
-				shape.j--;
-			}
-		}
-		break;
-		case(2):{
-			direction = 2;
-			if (shape.j < 9 && board[shape.i][shape.j + 1] != 5) {
-				shape.j++;
-			}
-		}
-		break;
-		case(3):{
-			direction = 3;
-			if (shape.i > 0 && board[shape.i - 1][shape.j] != 5) {
-				shape.i--;
-			}
-		}
-		break;
-		case(4):{
-			direction = 1;
-			if (shape.i < 19 && board[shape.i + 1][shape.j] != 5) {
-				shape.i++;
-			}
-		}
-		break;
-	}
-	if (board[shape.i][shape.j] == 2) {
+	board[pacman.i][pacman.j] = 0;
+	handlePacMove();
+	if (board[pacman.i][pacman.j] == 2) {
 		score += 5;
 		ballAmount--;
 	}
-	else if (board[shape.i][shape.j] == 3) {
+	else if (board[pacman.i][pacman.j] == 3) {
 		score += 15;
 		ballAmount--;
 	}
-	else if (board[shape.i][shape.j] == 4){
+	else if (board[pacman.i][pacman.j] == 4){
 		score += 25;
 		ballAmount--;
 	}
-	board[shape.i][shape.j] = 1;
+	if (board[pacman.i][pacman.j] == 6){
+		score += 50;
+	}
+	board[pacman.i][pacman.j] = 1;
+
+	if(board[prize.i][prize.j] == 6 && prizeMove == true){
+		board[prize.i][prize.j] = 0;
+		handlePrizeMove();
+		board[prize.i][prize.j] = 6
+	}
+	prizeMove = !prizeMove;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	time_remaining = Math.floor(gameTime - time_elapsed);
@@ -331,6 +321,97 @@ function UpdatePosition() {
 		Draw();
 	}
 
+
+}
+
+function handlePacMove(){
+	var x = GetKeyPressed();
+	switch(x){
+		case(1):{
+			direction = 4;
+			if (pacman.j > 0 && board[pacman.i][pacman.j - 1] != 5) {
+				pacman.j--;
+			}
+		}
+		break;
+		case(2):{
+			direction = 2;
+			if (pacman.j < 9 && board[pacman.i][pacman.j + 1] != 5) {
+				pacman.j++;
+			}
+		}
+		break;
+		case(3):{
+			direction = 3;
+			if (pacman.i > 0 && board[pacman.i - 1][pacman.j] != 5) {
+				pacman.i--;
+			}
+		}
+		break;
+		case(4):{
+			direction = 1;
+			if (pacman.i < 19 && board[pacman.i + 1][pacman.j] != 5) {
+				pacman.i++;
+			}
+		}
+		break;
+	}
+}
+
+function GetKeyPressed() {
+	//Up - default 38
+	if (keysDown[keyUp]) {
+		return 1;
+	}
+	//Down - default 40
+	if (keysDown[keyDown]) {
+		return 2;
+	}
+	//Left - default 37
+	if (keysDown[keyLeft]) {
+		return 3;
+	}
+	//Right - default 39
+	if (keysDown[keyRight]) {
+		return 4;
+	}
+}
+
+function handlePrizeMove(){
+	var notFound = true;
+	while(notFound){
+		x = Math.floor(Math.random()*4) + 1;
+		switch(x){
+			case(1):{
+				if (prize.j > 0 && board[prize.i][prize.j - 1] != 5) {
+					prize.j--;
+					notFound = false;
+				}
+			}
+			break;
+			case(2):{
+				if (prize.j < 9 && board[prize.i][prize.j + 1] != 5) {
+					prize.j++;
+					notFound = false;
+				}
+			}
+			break;
+			case(3):{
+				if (prize.i > 0 && board[prize.i - 1][prize.j] != 5) {
+					prize.i--;
+					notFound = false;
+				}
+			}
+			break;
+			case(4):{
+				if (prize.i < 19 && board[prize.i + 1][prize.j] != 5) {
+					prize.i++;
+					notFound = false;
+				}
+			}
+			break;
+		}
+	}
 
 }
 
@@ -509,7 +590,7 @@ function changeColor30(){
 	}
 	else{
 		document.getElementById("color30Ball").style.color = "black";
-		document.getElementById("Infocolor30Ball").style.color = "white";
+		document.getElementById("Infocolor30Ball").style.color = "black";
 	}
 }
 
@@ -523,7 +604,7 @@ function changeColor10(){
 	document.getElementById("color10Ball").style.backgroundColor = colors[color10Ball];
 	document.getElementById("Infocolor10Ball").style.backgroundColor = colors[color10Ball];
 	if(color10Ball == 7 || color10Ball == 4){
-		document.getElementById("Infocolor10Ball").style.color = "white";
+		document.getElementById("color10Ball").style.color = "white";
 		document.getElementById("Infocolor10Ball").style.color = "white";
 	}
 	else{

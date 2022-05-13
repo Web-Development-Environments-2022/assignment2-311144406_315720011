@@ -4,74 +4,130 @@ body {
     padding:0;
     width: 100%;
     height: 100%;
-	background: rgb(0, 35, 100);
 	color: white;
 	font-family: helvetica;
   }
+  .header{
+      position: fixed;
+     
+     
+      height: 5%;
+      width: 100%;
+      margin-left: 10%;
+      font-style: italic;
+      background-color: black;
+      color: wheat;
+      font-size: x-large;
+     
+      
+
+  }
+     
+     
+     
+ 
+  .logo-container{
+      height: 100%;
+      display: table;
+      float: left;
+  }
+  .logo-container h1{
+    color: wheat;
+      height: 100%;
+      display: table-cell;
+      vertical-align: middle;
+      font-family: 'Montserrat';
+      font-size: larger;
+      font-weight: 100;
 
 
-    .menu{
-        position: fixed;
-        margin: 0;
-        padding:0;
-        width: 100%;
-        background-color: rgb(0, 0, 0);
-        z-index: 1;
-        
-    }
+  }
+  .logo-container h1 span{
+      font-weight: 1000;
+      font-size: xx-large;
+      color: white;
+  }
+  .info{
+      float: right;
+      height: 100%;
+      font-size: larger;
+      font-family: 'Montserrat';
+      color: wheat;
+      vertical-align: middle;
+      margin-right: 10%;
 
-    .menu .menu-box {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: rgb(0, 0, 0);
-        border:none;
-        display:inline-block;
-        padding:8px 4px;
-        vertical-align:middle;
-        overflow:hidden;
-        text-decoration:none;
-        color:inherit;
-        text-align:center;
-        cursor:pointer;
-        white-space:nowrap
-    }
-
-    .menu .menu-box a {
-        float: left;
-        color: #f2f2f2;
-        text-align: center;
-        vertical-align:middle;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-    }
-
-    .menu .menu-box a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    .menu img{
-        position: relative;
-        float: right;
-        padding-top: 0.5%;
-        padding-right: 1%;
-    }
-
+  }
+  .header image{
+      float: right;
+      height: 5%;
+      width: 100%;
+      background-size: 100% 100%;
+      background-position: center;
+  }
+ 
+  .sidebar {
+    height: 100%;
+    width: 10%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:
+    
+    #203344;
+    overflow-x: hidden;
+    color: black;
+   
+  }
+  
+  /* Style sidebar links */
+   .sidebar a {
+    padding: 20%;
+    text-decoration: none;
+    font-size: 35px;
+    font-style: oblique;
+    color: #818181;
+    display: block;
+    font-family: 'Montserrat';
+    border-style:solid;
+    border-color: #000;
+  }
+  
+  
+   .sidebar a:hover {
+    color: black;
+    background-color:#FFE4C4;
+  }
+  .sidebar img{
+      
+      width: 100%;
+      height: 5%;
+     
+    
+  }
+ 
+  
+  /* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+   @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+    
 
     .content{
-        position: relative;
-        top: 9%;
+        position: fixed;
+        top: 5%;
         margin: 0;
         padding:0;
-        width: 100%;
-        height: 80%;
-        background-color: rgb(0, 35, 100);
+        width: 90%;
+        height: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-left: 10%;
+        background-image: url(765443.jpg);
+        background-size: 100% 100%;
+        bottom: 5%;
     }
 
         .fullName{
@@ -83,12 +139,29 @@ body {
         }
 
         .page{
+           
             position: relative;
             margin: 0;
             padding:0;
             width: 100%;
             text-align: center;
+          
 
+        }
+        .welcome-header{
+            color: #ffffb3;
+            font-size: 120px;
+            font-style:italic;
+            margin-top: -10%;
+            font-weight: 200;
+           
+           
+            
+            
+        }
+        .welcome-header span{
+            font-weight:bold;
+            color: white;
         }
 
         .game{
@@ -130,11 +203,282 @@ body {
     .footer{
         position: fixed;
         bottom: 0;
+        height: 5%;
         width: 100%;
-        padding-top: 0.75%;
-        padding-bottom: 0.75%;
-        background-color: rgb(100, 0, 0);
-        color: white;
-        text-align: left;
-        text-indent: 2%;
+    
+        background-color: black;
+        color: wheat;
+        font-family: 'Montserrat';
+        font-size: larger;
+        
+        margin-left: 10%;
+        
+      
     }
+    .glow-on-hover {
+        width: 350px;
+        height: 60px;
+        border: none;
+        outline: none;
+        color: white;
+        background: blue;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+        font-size: xx-large; 
+        font-style: italic;
+        margin-top: -1%;
+    }
+    
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left:-2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+    
+    .glow-on-hover:active {
+        color:blue
+    }
+    
+    .glow-on-hover:active:after {
+        background: transparent;
+    }
+    
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+    
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: blue;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+    
+    @keyframes glowing {
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
+    }
+
+
+    .pacman {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #f2d648;
+        position: relative;
+        margin-left: 47%;
+
+      }
+      .pacman__eye {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        top: 20px;
+        right: 40px;
+        background: #333333;
+      }
+      .pacman__mouth {
+        background: #000;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+        animation-name: eat;
+        animation-duration: 0.7s;
+        animation-iteration-count: infinite;
+      }
+      @keyframes eat {
+        0% {
+          clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+        }
+        25% {
+          clip-path: polygon(100% 60%, 44% 48%, 100% 40%);
+        }
+        50% {
+          clip-path: polygon(100% 50%, 44% 48%, 100% 50%);
+        }
+        75% {
+         clip-path: polygon(100% 59%, 44% 48%, 100% 35%);
+        }
+        100% {
+         clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+        }
+      }
+      .pacman__food {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: #fff;
+        border-radius: 50%;
+        top: 40%;
+        left: 120px;
+        animation-name: food;
+        animation-duration: 0.7s;
+        animation-iteration-count: infinite;
+      }
+      @keyframes food {
+        0% {
+          transform: translateX(0);
+            opacity: 1;
+        }
+        100% {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+      }
+      input {
+        text-align: center;
+        background-color: #ECF0F1;
+        border: 2px solid transparent;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 200;
+        padding: 10px 0;
+        width: 250px;
+        transition: border .5s;
+        }
+        
+        input:focus {
+        border: 2px solid #3498DB;
+        box-shadow: none;
+        }
+    .register{
+        height: 60%;
+        width: 30%;
+        background-image: url(back-login.jpg);
+        background-size: 100% 100%;
+        background-position: center;
+        margin-top: -10%;
+        border-color:#A0A0A0;
+        border-style: solid;
+        border-width: thin;
+
+    }
+    .register h1{
+        font-weight: 500;
+        font-size:50px;
+        text-align: center;
+        margin-bottom: 3%;
+        color: #ffffb3;
+    }
+    .input-box{
+        width: 100%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 6px 0;
+        height: 32px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        font-size: larger;
+
+
+    }
+    ::placeholder{
+        color: #fff;
+        font-size: 12px;
+        opacity:40%;
+    }
+    .but{
+        width: 100%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 25px 0;
+        height: 32px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: x-large;
+    }
+    .About{
+        height:33%;
+        width: 30%;
+
+        background-color:#1C1C1C;
+
+    }
+    .About h1{
+        text-align: center;
+        margin-top: -7%;
+        color: #ffffb3;
+    }
+    .About p{
+        text-align: left;
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-style: italic;
+        color: #818181;
+        
+    }
+    .About image{
+       
+        width: 100%;
+       text-align: center;
+    }
+    .submit{
+        width: 100%;
+        background: transparent;
+        border:1px solid #fff;
+        margin: 25px 0;
+        height: 32px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: x-large;
+    }
+    .submit:hover{
+        background:#333333;
+    }
+    .login{
+        height: 40%;
+        width: 30%;
+      
+        background-image: url(back-login.jpg);
+        background-size: 100% 100%;
+        background-position: center;
+        margin-top: -10%;
+        border-color:#A0A0A0;
+        border-style: solid;
+        border-width: thin;
+
+    }
+    .login h1{
+        font-weight: 500;
+        font-size:50px;
+        text-align: center;
+        margin-bottom: 3%;
+        color: #ffffb3;
+    }
+  
+ 

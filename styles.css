@@ -11,6 +11,7 @@ body {
     left: 0;
     bottom: 0;
     top: 0;
+    overflow: hidden;
   }
   .header{
       position: fixed;
@@ -80,7 +81,7 @@ body {
     background-color:
     
     #203344;
-    overflow-x: hidden;
+    overflow: hidden;
     color: black;
    
   }
@@ -89,13 +90,14 @@ body {
    .sidebar a {
     padding: 20%;
     text-decoration: none;
-    font-size: 35px;
+    font-size: 31px;
     font-style: oblique;
     color: #818181;
     display: block;
     font-family: 'Montserrat';
     border-style:solid;
     border-color: #000;
+    text-align: center;
   }
   
   

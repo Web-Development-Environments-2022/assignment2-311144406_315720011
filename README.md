@@ -15,6 +15,8 @@ enemy ghosts
 Todo:
 walls css
 music thread
+display propper game over scene with score or data, dead pacman sound and retry button
+add lives to game details
 
 
 

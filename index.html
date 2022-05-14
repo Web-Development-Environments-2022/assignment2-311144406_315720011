@@ -67,22 +67,22 @@
 
 				<div>
 					
-					<input id="regUsername" class="input-box" type="text"  placeholder="Your Username" />
+					<input id="regUsername" class="input-box" type="text"  placeholder="Your Username" autocomplete="off"/>
 				</div>
 				<div>
-					<input id="regPassword" class="input-box"  placeholder="Your Password"/>
-				</div>
-				<div>
-					
-					<input id="regFullName" class="input-box"  placeholder="Your Full name" />
+					<input id="regPassword" class="input-box"  placeholder="Your Password" autocomplete="off"/>
 				</div>
 				<div>
 					
-					<input id="regEmail" class="input-box"  placeholder="Your Email" />
+					<input id="regFullName" class="input-box"  placeholder="Your Full name" autocomplete="off"/>
 				</div>
 				<div>
 					
-					<input id="refBirthDate" class="input-box"  placeholder="Your BirthDate"/>
+					<input id="regEmail" class="input-box"  placeholder="Your Email" autocomplete="off"/>
+				</div>
+				<div>
+					
+					<input id="refBirthDate" class="input-box"  placeholder="Your BirthDate" autocomplete="off"/>
 				</div>
 
 			
@@ -93,10 +93,10 @@
 				<h1 style="text-align: center;">Login</h1>
 				<div>
 					
-					<input id="logUsername" class="input-box" type="text" placeholder="Your Username" />
+					<input id="logUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
 				</div>
 				<div>
-					<input id="logPassword" class="input-box" type="text" placeholder="Your Password"/>
+					<input id="logPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
 				</div>
 				
 				<button onclick="login()" class="submit">Log In</button>
@@ -111,19 +111,19 @@
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Up:</label>
-						<input id="changeKeyUp" class="input-box-config" value="Up" type="button" onclick="changeKeyUp()"/>
+						<input id="changeKeyUp" class="input-box-config" value="Up" type="button" onclick="changeKeyUp()" autocomplete="off"/>
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Down:</label>
-						<input id="changeKeyDown" class="input-box-config" value="Down" type="button" onclick="changeKeyDown()" />
+						<input id="changeKeyDown" class="input-box-config" value="Down" type="button" onclick="changeKeyDown()" autocomplete="off" />
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Left:</label>
-						<input id="changeKeyLeft" class="input-box-config" value="Left" type="button" onclick="changeKeyLeft()"/>
+						<input id="changeKeyLeft" class="input-box-config" value="Left" type="button" onclick="changeKeyLeft()" autocomplete="off"/>
 					</div>
 					<div>
 						<label for="changeKeyUp">Key for Right:</label>
-						<input id="changeKeyRight" class="input-box-config" value="Right" type="button" onclick="changeKeyRight()"/>
+						<input id="changeKeyRight" class="input-box-config" value="Right" type="button" onclick="changeKeyRight()" autocomplete="off"/>
 					</div>
 				</div>
 				<br>
@@ -132,22 +132,22 @@
 					<h2>Change Ball Color:</h2>
 				</div>
 				<div>
-					<input id="color60Ball" class="input-box-config-ball"  value="Legendary" type="button" onclick="changeColor60()" />
-					<input id="color30Ball" class="input-box-config-ball"  value="Rare" type="button" onclick="changeColor30()"/>
-					<input id="color10Ball" class="input-box-config-ball"  value="Common" type="button" onclick="changeColor10()"/>
+					<input id="color60Ball" class="input-box-config-ball"  value="Legendary" type="button" onclick="changeColor60()" autocomplete="off"/>
+					<input id="color30Ball" class="input-box-config-ball"  value="Rare" type="button" onclick="changeColor30()" autocomplete="off"/>
+					<input id="color10Ball" class="input-box-config-ball"  value="Common" type="button" onclick="changeColor10()" autocomplete="off"/>
 				</div>
 				<br>
 				<div>
 					<label for="ballAmount">Ball Amount:</label>
-					<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" onkeyup="enforceMinMax(this)"/>
+					<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" onkeyup="enforceMinMax(this)" autocomplete="off"/>
 				</div>
 				<div>
 					<label for="gameTime">Time (in seconds):</label>
-					<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" onkeyup="enforceMinMax(this)"/>
+					<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" onkeyup="enforceMinMax(this)" autocomplete="off"/>
 				</div>
 				<div>
 					<label for="mobAmount">Number of Mobs:</label>
-					<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" onkeyup="enforceMinMax(this)" />
+					<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" onkeyup="enforceMinMax(this)" autocomplete="off" />
 				</div>
 				<br>
 
@@ -169,19 +169,19 @@
 					</div>
 					<div>
 						<label for="InfoKeyUp">Key for Up:</label>
-						<input id="InfoKeyUp" class="input-box-config" value="Up" type="button" />
+						<input id="InfoKeyUp" class="input-box-config" value="Up" type="button" autocomplete="off" />
 					</div>
 					<div>
-						<label for="InfoKeyDown">Key for Down:</label>
-						<input id="InfoKeyDown" class="input-box-config"  value="Down" type="button"  />
+						<label for="InfoKeyDown">Key for Down:</label> 
+						<input id="InfoKeyDown" class="input-box-config"  value="Down" type="button"   autocomplete="off"/>
 					</div>
 					<div>
 						<label for="InfoKeyLeft">Key for Left:</label>
-						<input id="InfoKeyLeft" class="input-box-config"  value="Left" type="button" />
+						<input id="InfoKeyLeft" class="input-box-config"  value="Left" type="button"  autocomplete="off"/>
 					</div>
 					<div>
 						<label for="InfoKeyRight">Key for Right:</label>
-						<input id="InfoKeyRight" class="input-box-config"  value="Right" type="button" />
+						<input id="InfoKeyRight" class="input-box-config"  value="Right" type="button" autocomplete="off" />
 					</div>
 					<br>
 
@@ -190,23 +190,23 @@
 					</div>
 					<br/>
 					<div>
-						<input id="Infocolor60Ball" class="input-box-game-config-ball" value="Legendary" type="button" />
-						<input id="Infocolor30Ball" class="input-box-game-config-ball" value="Rare" type="button" />
-						<input id="Infocolor10Ball" class="input-box-game-config-ball" value="Common" type="button" />
+						<input id="Infocolor60Ball" class="input-box-game-config-ball" value="Legendary" type="button" autocomplete="off"/>
+						<input id="Infocolor30Ball" class="input-box-game-config-ball" value="Rare" type="button" autocomplete="off"/>
+						<input id="Infocolor10Ball" class="input-box-game-config-ball" value="Common" type="button" autocomplete="off"/>
 					</div>	
 					<br>
 
 					<div>
 						<label for="InfoballAmount">Ball Amount:</label>
-						<input id="InfoballAmount"  class="input-box-config"  type="button" value="60" />
+						<input id="InfoballAmount"  class="input-box-config"  type="button" value="60" autocomplete="off"/>
 					</div>
 					<div>
 						<label for="InfogameTime">Total Game Time:</label>
-						<input id="InfogameTime" class="input-box-config"  type="button" value="300" />
+						<input id="InfogameTime" class="input-box-config"  type="button" value="300" autocomplete="off"/>
 					</div>
 					<div>
 						<label for="InfomobAmount">Number of Mobs:</label>
-						<input id="InfomobAmount" class="input-box-config"  type="button" value="2" />
+						<input id="InfomobAmount" class="input-box-config"  type="button" value="2" autocomplete="off"/>
 					</div>
 					
 				</div>
@@ -216,15 +216,15 @@
 				<div class="data">
 					<div id="score" >
 						<label for="lblScore">SCORE:</label>
-						<input id="lblScore" class="input-box-config" type="text" />
+						<input id="lblScore" class="input-box-config" type="text" autocomplete="off"/>
 					</div>
 					<div id="time">
 						<label for="timeLeft">TIME:</label>
-						<input id="timeLeft"  class="input-box-config" type="text" />
+						<input id="timeLeft"  class="input-box-config" type="text" autocomplete="off"/>
 					</div>
 					<div>
 						<label for="ballNumber">BALLS:</label>
-						<input id="ballNumber"  class="input-box-config" type="text" />
+						<input id="ballNumber"  class="input-box-config" type="text" autocomplete="off"/>
 					</div>
 				</div>
 				<div id="board">

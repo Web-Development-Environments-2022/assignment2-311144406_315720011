@@ -5,7 +5,6 @@
 
 TODO Omer:
 lock zoom change - game does not respond to zoom scroll
-fix top left logo
 
 TODO Tomer:
 mobs slide animation - add miliseconds counter and use % to specify events

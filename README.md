@@ -4,9 +4,6 @@
 
 
 TODO Omer:
-fix configurations location during game
-fix configurations css
-remove input seggustions
 lock zoom change - game does not respond to zoom scroll
 fix top left logo
 

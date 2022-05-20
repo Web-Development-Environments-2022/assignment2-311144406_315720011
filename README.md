@@ -3,21 +3,16 @@
  
 
 
-TODO Omer:
-lock zoom change - game does not respond to zoom scroll
-
-TODO Tomer:
-mobs slide animation - add miliseconds counter and use % to specify events
-enemy ghosts
 
 
 
 Todo:
 walls css
-music thread
-display propper game over scene with score or data, dead pacman sound and retry button
+game over fetures 
 add lives to game details
-
+lock zoom change - game does not respond to zoom scroll
+avoid ghosts from merging
+fix 1 ball left
 
 
 

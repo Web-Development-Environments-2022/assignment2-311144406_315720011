@@ -4,29 +4,27 @@ var context;
 var pacman = new Object();
 
 var prize = new Object();
-var prizeImg = new Image();
-prizeImg.src =  'prize.png';
-var mobTurn = false;
+prize.img = new Image();
+prize.img.src =  'images/prize.png';
+
 
 var ghostRed = new Object();
-var ghostRedImg = new Image();
-ghostRedImg.src =  'ghostRedRight.png';
-var ghostRedMove = false;
+ghostRed.img = new Image();
+ghostRed.img.src =  'images/ghostRedRight.png';
 
 var ghostBlue = new Object();
-var ghostBlueImg = new Image();
-ghostBlueImg.src =  'ghostBlueRight.png';
-var ghostBlueMove = false;
+ghostBlue.img = new Image();
+ghostBlue.img.src =  'images/ghostBlueRight.png';
 
 var ghostOrange = new Object();
-var ghostOrangeImg = new Image();
-ghostOrangeImg.src =  'ghostOrangeRight.png';
-var ghostOrangeMove = false;
+ghostOrange.img = new Image();
+ghostOrange.img.src =  'images/ghostOrangeRight.png';
 
 var ghostPink = new Object();
-var ghostPinkImg = new Image();
-ghostPinkImg.src =  'ghostPinkRight.png';
-var ghostPinkMove = false;
+ghostPink.img = new Image();
+ghostPink.img.src =  'images/ghostPinkRight.png';
+
+mobTurn = false;
 
 var ghosts = Array();
 ghosts.push(ghostRed, ghostBlue, ghostOrange, ghostPink)
@@ -35,14 +33,18 @@ var boardMemory = {6:0, 7:0, 8:0, 9:0};
 var possibleMoves = Array();
 var board;
 var freeCells = [];
-var score;
 var lives;
+var score;
 var pac_color;
 var start_time;
 var time_elapsed;
 var time_remaining;
 var interval;
 var direction;
+var startGameAudio = new Audio('sounds/startGame.wav');
+var pacDeathAudio = new Audio('sounds/pacDeath.wav');
+var pacMunchAudio = new Audio('sounds/pacMunch.wav');
+var pacFruitAudio = new Audio('sounds/pacFruit.wav');
 
 //DOM Control
 var currElement;
@@ -55,7 +57,8 @@ var password;
 var fullName;
 var email;
 var birthDate;
-var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+// var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 //Configurations
 var keyUp = 38;
@@ -75,94 +78,105 @@ var mobAmount = 2;
 $(document).ready(function() {
 	users["k"] = ["k", "K Mistirio", "K@kmail.kom", "1/1/90"];
 	context = canvas.getContext("2d");
-	currElement = document.getElementById("welcome");
-	currElement.style.display = "block";
+	currElement = $("#welcome");
+	currElement.show();
 });
 
-function InitiateGame() {
+async function InitiateGame() {
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
 	var food_remain = ballAmount;
-	lives = 5;
+	lives = 1; // CHANGE
 	direction = 1;
 	start_time = new Date();
+	var currentTime = new Date();
+	time_elapsed = (currentTime - start_time) / 1000;
+	time_remaining = Math.floor(gameTime - time_elapsed);
 	for (var i = 0; i < 20; i++) {
 		board[i] = new Array();
 		for (var j = 0; j < 10; j++) {
 			if (
+				(i == 0 && j == 3) ||
+
 				(i == 1 && j == 1) ||
-				(i == 1 && j == 2) ||
 				(i == 1 && j == 3) ||
-				(i == 1 && j == 4) ||
-				(i == 1 && j == 6) ||
-				(i == 1 && j == 7) ||
-				(i == 1 && j == 8) ||
-				(i == 3 && j == 1) ||
-				(i == 3 && j == 2) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
+				(i == 1 && (j >= 5 && j <= 8)) ||
+
+				(i == 2 && j == 1) ||
+
+				(i == 3 && (j >= 1 && j <= 4)) ||
 				(i == 3 && j == 6) ||
-				(i == 3 && j == 7) ||
 				(i == 3 && j == 8) ||
-				(i == 5 && j == 1) ||
-				(i == 5 && j == 2) ||
+
+				(i == 4 && j == 1) ||
+				(i == 4 && j == 6) ||
+				(i == 4 && j == 8) ||
+
 				(i == 5 && j == 3) ||
-				(i == 5 && j == 4) ||
 				(i == 5 && j == 5) ||
 				(i == 5 && j == 6) ||
-				(i == 5 && j == 7) ||
-				(i == 5 && j == 9) ||
-				(i == 6 && j == 2) ||
-				(i == 7 && j == 2) ||
-				(i == 8 && j == 2) ||
-				(i == 7 && j == 4) ||
-				(i == 8 && j == 4) ||
-				(i == 9 && j == 4) ||
-				(i == 7 && j == 6) ||
-				(i == 8 && j == 6) ||
-				(i == 8 && j == 7) ||
-				(i == 8 && j == 8) ||
-				(i == 7 && j == 8) ||
+				(i == 5 && j == 8) ||
 
-				(i == 11 && j == 1) ||
-				(i == 11 && j == 2) ||
-				(i == 11 && j == 3) ||
-				(i == 11 && j == 4) ||
-				(i == 11 && j == 6) ||
-				(i == 11 && j == 7) ||
-				(i == 11 && j == 8) ||
+				(i == 6 && j == 0) ||
+				(i == 6 && j == 1) ||
+				(i == 6 && j == 3) ||
+				(i == 6 && j == 5) ||
+				(i == 6 && j == 6) ||
+				(i == 6 && j == 8) ||
 
+				(i == 7 && j == 3) ||
+
+				(i == 8 && (j >= 1 && j <= 3)) ||
+				(i == 8 && j == 5) ||
+				(i == 8 && (j >= 7 && j <= 9)) ||
+
+				(i == 9 && j == 5) ||
+
+				(i == 10 && (j >= 1 && j <= 3)) ||
+				(i == 10 && (j >= 5 && j <= 8)) ||
+				
+				(i == 12 && j == 1) ||
+				(i == 12 && j == 3) ||
+				(i == 12 && j == 5) ||
+				(i == 12 && j == 6) ||
+				(i == 12 && j == 8) ||
+
+				(i == 13 && j == 0) ||
 				(i == 13 && j == 1) ||
-				(i == 13 && j == 2) ||
-				(i == 13 && j == 4) ||
+				(i == 13 && j == 3) ||
 				(i == 13 && j == 5) ||
 				(i == 13 && j == 6) ||
-				(i == 13 && j == 7) ||
 				(i == 13 && j == 8) ||
+				(i == 13 && j == 9) ||
+
+				(i == 14 && j == 3) ||
 
 				(i == 15 && j == 1) ||
 				(i == 15 && j == 2) ||
 				(i == 15 && j == 3) ||
-				(i == 15 && j == 4) ||
 				(i == 15 && j == 5) ||
 				(i == 15 && j == 6) ||
-				(i == 15 && j == 7) ||
-				(i == 15 && j == 9) ||
+				(i == 15 && j == 8) ||
 
-				(i == 16 && j == 2) ||
+				(i == 16 && j == 5) ||
+				(i == 16 && j == 6) ||
+				(i == 16 && j == 8) ||
+
+				(i == 17 && j == 1) ||
 				(i == 17 && j == 2) ||
-				(i == 18 && j == 2) ||
+				(i == 17 && j == 5) ||
 
-				(i == 17 && j == 4) ||
+				(i == 18 && j == 1) ||
+				(i == 18 && j == 2) ||
 				(i == 18 && j == 4) ||
-				(i == 19 && j == 4) ||
-				(i == 17 && j == 6) ||
-				(i == 18 && j == 6) ||
+				(i == 18 && j == 5) ||
 				(i == 18 && j == 7) ||
 				(i == 18 && j == 8) ||
-				(i == 17 && j == 8)	
-			) {
+				(i == 18 && j == 9)
+
+
+			){
 				board[i][j] = 5;
 			} else {
 				freeCells.push([i,j])
@@ -184,6 +198,10 @@ function InitiateGame() {
 		setPinkGhost();
 	}
 
+	//TO REMOVE
+	console.log(food_remain);
+	console.log(ballAmount);
+	
 	//Set Balls
 	while (freeCells.length > 0 && food_remain > 0) {
 		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)];
@@ -199,6 +217,12 @@ function InitiateGame() {
 		}
 		food_remain--;
 	}
+
+	//TO REMOVE
+	console.log(food_remain);
+	console.log(ballAmount);
+	console.log(countballs());
+
 
 	ballAmount = ballAmount - food_remain;
 	keysDown = {};
@@ -217,10 +241,27 @@ function InitiateGame() {
 		false
 	);
 	Draw();
+	await waitForAudio(startGameAudio);
+	start_time = new Date();
 	interval = setInterval(UpdatePosition, 250);
 }
 
-function restart(){
+//TO REMOVE
+function countballs(){
+	let count = 0;
+	for (var i = 0; i < 20; i++) {
+		for (var j = 0; j < 10; j++) {
+			if (board[i][j] >= 2 && board[i][j] <= 4){
+				count ++;
+			}
+		}
+	}
+	return count;
+}
+
+			
+
+async function restart(){
 	freeCells = [];
 	for (var i = 0; i < 20; i++) {
 		for (var j = 0; j < 10; j++) {
@@ -244,7 +285,7 @@ function restart(){
 		setPinkGhost();
 	}
 	Draw();
-	timeStamp = new Date();
+	await waitForAudio(startGameAudio);
 	interval = setInterval(UpdatePosition, 250);
 }
 
@@ -360,27 +401,27 @@ function Draw() {
 				break;
 				//prize
 				case(6):{
-					context.drawImage(prizeImg, center.x - 30, center.y - 30, 60, 60);
+					context.drawImage(prize.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Red Ghost
 				case(7):{
-					context.drawImage(ghostRedImg, center.x - 30, center.y - 30, 60, 60);
+					context.drawImage(ghostRed.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Blue Ghost
 				case(8):{
-					context.drawImage(ghostBlueImg, center.x - 30, center.y - 30, 60, 60);
+					context.drawImage(ghostBlue.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Orange Ghost
 				case(9):{
-					context.drawImage(ghostOrangeImg, center.x - 30, center.y - 30, 60, 60);
+					context.drawImage(ghostOrange.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Pink Ghost
 				case(10):{
-					context.drawImage(ghostPinkImg, center.x - 30, center.y - 30, 60, 60);
+					context.drawImage(ghostPink.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 			}
@@ -400,22 +441,34 @@ function draWall(ctx, x, y, width, height, radius) {
 	ctx.stroke();
   }
 
-function UpdatePosition() {
+function waitForAudio(audio){
+	return new Promise(res=>{
+		audio.play();
+		audio.onended = res;
+	})
+}
+
+async function UpdatePosition() {
 	board[pacman.i][pacman.j] = 0;
 	handlePacMove();
 	if (board[pacman.i][pacman.j] == 2) {
+		pacMunchAudio.play();
 		score += 5;
 		ballAmount--;
 	}
 	else if (board[pacman.i][pacman.j] == 3) {
+		pacMunchAudio.play();
 		score += 15;
 		ballAmount--;
 	}
 	else if (board[pacman.i][pacman.j] == 4){
+		pacMunchAudio.play();
 		score += 25;
 		ballAmount--;
 	}
 	if (board[pacman.i][pacman.j] == 6){
+		pacFruitAudio.load();
+		pacFruitAudio.play();
 		score += 50;
 	}
 	board[pacman.i][pacman.j] = 1;
@@ -458,9 +511,10 @@ function UpdatePosition() {
 	time_remaining = Math.floor(gameTime - time_elapsed);
 	if (ballAmount == 0) {
 		window.clearInterval(interval);
-		window.alert("Game Completed");
+		conclude();
 	}
 	else if(time_remaining <= 0){
+		lives = 1;
 		GameOver();
 	}
 	else {
@@ -472,18 +526,24 @@ function UpdatePosition() {
 
 }
 
-function GameOver(){
+async function GameOver(){
 	lives--;
 	score -= 10;
 	window.clearInterval(interval);
+	await waitForAudio(pacDeathAudio);
 	if(lives <= 0){
 		Draw();
-		window.alert("Game Over");
+		conclude();
 	}
 	else{
-		//PlayDeadSound()
 		restart();
 	}
+}
+
+function conclude(){
+	$("#concludeScore").val(score);
+	$("#concludeTime").val(time_elapsed)
+	openConclude();
 }
 
 
@@ -598,39 +658,38 @@ function moveMob(mob, x){
 }
 
 function showWelcome() {
-	currElement.style.display = "none";
-	currElement = document.getElementById("welcome");
-	currElement.style.display = "block";
+	currElement.hide();
+	currElement = $("#welcome");
+	currElement.show();
 }
 
 function showRegistration() {
-	currElement.style.display = "none";
-	currElement = document.getElementById("register");
-	currElement.style.display = "block";
+	currElement.hide();
+	currElement = $("#register");
+	currElement.show();
 }
 
 function register(){
 	window.clearInterval(interval);
-	username = document.getElementById("regUsername").value;
-	password = document.getElementById("regPassword").value;
-	fullName = document.getElementById("regFullName").value;
-	email = document.getElementById("regEmail").value;
-	birthDate = document.getElementById("refBirthDate").value;
-
+	username = $("#regUsername").val();
+	password = $("#regPassword").val();
+	fullName = $("#regFullName").val();
+	email = $("#regEmail").val();
+	birthDate = $("#refBirthDate").val();
 	if(username == '' || password == '' || fullName == '' || email == '' || birthDate == ''){
-		alert("Please enter all fields");
+		return;
 	}
-	else if(users[username] != null){
-		alert("Username already exists");
+	else if(username in users){
+		return;
 	}
 	else if(password.length < 6 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)){
-		alert("Password must be 6 characterslong and contain both numbers and letters");
+		return;
 	}
 	else if(/\d/.test(fullName)){
-		alert("Name cannot contain numbers");
+		return;
 	}
-	else if(!emailRegex.test(email)){
-		alert("Invalid email address");
+	else if(!/^[\w-\.]+@[a-zA-Z\d]+/.test(email)){
+		return;
 	}
 	else{
 		users[username] = [password, fullName, email, birthDate];
@@ -640,22 +699,78 @@ function register(){
 }
 
 $(document).ready(function() {
-						  
-	$(function() {
-		$( "#refBirthDate" ).datepicker();
+	$( "#refBirthDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+	$.validator.addMethod('validPassword', 
+	function(value, element) {
+        return this.optional(element) || (value.match(/[a-zA-Z]/) && value.match(/\d/));
+    },
+    'Password must contain at least one numeric and one alphabetic character.');
+
+	$.validator.addMethod('validName', 
+	function(value, element) {
+        return this.optional(element) || (value.match(/[a-zA-Z]/) && !value.match(/\d/));
+    },
+    'Full name must contain only alphabetic character.');
+
+	$("#registerForm").validate({
+		errorClass: 'errors',
+		rules : {
+			regUsername: {
+				required : true,
+				minlength : 2
+			},
+			regPassword: {
+				required : true,
+				minlength : 6,	
+				validPassword: true
+			},
+			regFullName : {
+				required : true,
+				validName: true
+			},
+			regEmail : {
+				required : true,
+				email : true
+			},
+			refBirthDate: {
+				required : true,
+			}
+		},
+		// massages : {
+		// 	regUsername: {
+		// 		required : "user name field cannot be empty",
+		// 		minlength : "Your user name must be consist of at least 2 characters"
+		// 	},
+		// 	regPassword: {
+		// 		required : "password field cannot be empty",
+		// 		minlength : "Your password must be consist of at least 6 characters"
+		// 	},
+		// 	regFullName: {
+		// 		required : "name field cannot be empty"
+		// 	},
+		// 	regEmail: {
+		// 		required : "email field cannot be empty"
+		// 	},
+		// 	refBirthDate: {
+		// 		required : "birth date field cannot be empty"
+		// 	}
+		// },
 	});
-})
+
+
+
+});
 
 function showLogIn() {
-	currElement.style.display = "none";
-	currElement = document.getElementById("login");
-	currElement.style.display = "block";
+	currElement.hide();
+	currElement = $("#login");
+	currElement.show();
 }
 
 function login(){
 	window.clearInterval(interval);
-	username = document.getElementById("logUsername").value;
-	password = document.getElementById("logPassword").value;
+	username = $("#logUsername").val();
+	password = $("#logPassword").val();
 	if(username == '' || password == ''){
 		alert("Please enter all fields");
 	}
@@ -674,19 +789,18 @@ function showConfig(){
 	color60Ball = 0;
 	color30Ball= 1;
 	color10Ball = 2;
-	document.getElementById("color60Ball").style.backgroundColor = colors[color60Ball];
-	document.getElementById("color30Ball").style.backgroundColor = colors[color30Ball];
-	document.getElementById("color10Ball").style.backgroundColor = colors[color10Ball];
+	$("#color60Ball").css("backgroundColor", colors[color60Ball]);
+	$("#color30Ball").css("backgroundColor", colors[color30Ball]);
+	$("#color10Ball").css("backgroundColor", colors[color10Ball]);
 
+	$("#changeKeyUp").val(keyboardMap[keyUp]);
+	$("#changeKeyDown").val(keyboardMap[keyDown]);
+	$("#changeKeyLeft").val(keyboardMap[keyLeft]);
+	$("#changeKeyRight").val(keyboardMap[keyRight]);
 
-	document.getElementById("changeKeyUp").value = keyboardMap[keyUp];
-	document.getElementById("changeKeyDown").value = keyboardMap[keyDown];
-	document.getElementById("changeKeyLeft").value = keyboardMap[keyLeft];
-	document.getElementById("changeKeyRight").value = keyboardMap[keyRight];
-
-	currElement.style.display = "none";
-	currElement = document.getElementById("config");
-	currElement.style.display = "block";
+	currElement.hide();
+	currElement = $("#config");
+	currElement.show();
 }
 
 function enforceMinMax(element){
@@ -705,8 +819,8 @@ function changeKeyUp(){
 		"keydown",
 		function(e) {
 		keyUp = e.keyCode;
-		document.getElementById("changeKeyUp").value = keyboardMap[keyUp];
-		document.getElementById("InfoKeyUp").value = keyboardMap[keyUp];
+		$("#changeKeyUp").val(keyboardMap[keyUp]);
+		$("#InfoKeyUp").val(keyboardMap[keyUp]);
 		},
 		{once : true}
 	);
@@ -717,8 +831,8 @@ function changeKeyDown(){
 		"keydown",
 		function(e) {
 		keyDown = e.keyCode;
-		document.getElementById("changeKeyDown").value = keyboardMap[keyDown];
-		document.getElementById("InfoKeyDown").value = keyboardMap[keyDown];
+		$("#changeKeyDown").val(keyboardMap[keyDown]);
+		$("#InfoKeyDown").val(keyboardMap[keyDown]);
 		},
 		{once : true}
 	);
@@ -729,8 +843,8 @@ function changeKeyLeft(){
 		"keydown",
 		function(e) {
 		keyLeft = e.keyCode;
-		document.getElementById("changeKeyLeft").value = keyboardMap[keyLeft];
-		document.getElementById("InfoKeyLeft").value = keyboardMap[keyLeft];
+		$("#changeKeyLeft").val(keyboardMap[keyLeft]); 
+		$("#InfoKeyLeft").val(keyboardMap[keyLeft]);
 		},
 		{once : true}
 	);
@@ -741,8 +855,8 @@ function changeKeyRight(){
 		"keydown",
 		function(e) {
 		keyRight = e.keyCode;
-		document.getElementById("changeKeyRight").value = keyboardMap[keyRight];
-		document.getElementById("InfoKeyRight").value = keyboardMap[keyRight];
+		$("#changeKeyRight").val(keyboardMap[keyRight]);
+		$("#InfoKeyRight").val(keyboardMap[keyRight]);
 		},
 		{once : true}
 	);
@@ -755,15 +869,15 @@ function changeColor60(){
 	else{
 		color60Ball ++;
 	}
-	document.getElementById("color60Ball").style.backgroundColor = colors[color60Ball];
-	document.getElementById("Infocolor60Ball").style.backgroundColor = colors[color60Ball];
+	$("#color60Ball").css("backgroundColor", colors[color60Ball]);
+	$("#Infocolor60Ball").css("backgroundColor", colors[color60Ball]);
 	if(color60Ball == 7 || color60Ball == 4){
-		document.getElementById("color60Ball").style.color = "white";
-		document.getElementById("Infocolor60Ball").style.color = "white";
+		$("#color60Ball").css("color", "white");
+		$("#Infocolor60Ball").css("color", "white");
 	}
 	else{
-		document.getElementById("color60Ball").style.color = "black";
-		document.getElementById("Infocolor60Ball").style.color = "black";
+		$("#color60Ball").css("color", "black");
+		$("#Infocolor60Ball").css("color", "black");
 	}
 
 }
@@ -775,15 +889,15 @@ function changeColor30(){
 	else{
 		color30Ball ++;
 	}
-	document.getElementById("color30Ball").style.backgroundColor = colors[color30Ball];
-	document.getElementById("Infocolor30Ball").style.backgroundColor = colors[color30Ball];
+	$("#color30Ball").css("backgroundColor", colors[color30Ball]);
+	$("#Infocolor30Ball").css("backgroundColor", colors[color30Ball]);
 	if(color30Ball == 7 || color30Ball == 4){
-		document.getElementById("color30Ball").style.color = "white";
-		document.getElementById("Infocolor30Ball").style.color = "white";
+		$("#color30Ball").css("color", "white");
+		$("#Infocolor30Ball").css("color", "white");
 	}
 	else{
-		document.getElementById("color30Ball").style.color = "black";
-		document.getElementById("Infocolor30Ball").style.color = "black";
+		$("#color30Ball").css("color", "black");
+		$("#Infocolor30Ball").css("color", "black");
 	}
 }
 
@@ -794,22 +908,22 @@ function changeColor10(){
 	else{
 		color10Ball ++;
 	}
-	document.getElementById("color10Ball").style.backgroundColor = colors[color10Ball];
-	document.getElementById("Infocolor10Ball").style.backgroundColor = colors[color10Ball];
+	$("#color10Ball").css("backgroundColor", colors[color10Ball]);
+	$("#Infocolor10Ball").css("backgroundColor", colors[color10Ball]);
 	if(color10Ball == 7 || color10Ball == 4){
-		document.getElementById("color10Ball").style.color = "white";
-		document.getElementById("Infocolor10Ball").style.color = "white";
+		$("#color10Ball").css("color", "white");
+		$("#Infocolor10Ball").css("color", "white");
 	}
 	else{
-		document.getElementById("color10Ball").style.color = "black";
-		document.getElementById("Infocolor10Ball").style.color = "black";
+		$("#color10Ball").css("color", "black");
+		$("#Infocolor10Ball").css("color", "black");
 	}
 }
 
 function RandomConfig(){
-	document.getElementById("ballAmount").value = Math.floor(Math.random() * 41) + 50;
-	document.getElementById("gameTime").value = Math.floor(Math.random() * 3541) + 60;
-	document.getElementById("mobAmount").value = Math.floor(Math.random() * 4) + 1;
+	$("#ballAmount").val(Math.floor(Math.random() * 41) + 50);
+	$("#gameTime").val(Math.floor(Math.random() * 3541) + 60);
+	$("#mobAmount").val(Math.floor(Math.random() * 4) + 1);
 	color60Ball = Math.floor(Math.random() * 8) - 1;
 	changeColor60();
 	color30Ball = Math.floor(Math.random() * 8) - 1;
@@ -821,13 +935,13 @@ function RandomConfig(){
 
 
 function saveConfig(){
-	ballAmount = document.getElementById("ballAmount").value;
-	gameTime = document.getElementById("gameTime").value;
-	mobAmount = document.getElementById("mobAmount").value;
+	ballAmount = $("#ballAmount").val();
+	gameTime = $("#gameTime").val();
+	mobAmount = $("#mobAmount").val();
 
-	document.getElementById("InfoballAmount").value = ballAmount;
-	document.getElementById("InfogameTime").value = gameTime;
-	document.getElementById("InfomobAmount").value = mobAmount;
+	$("#InfoballAmount").val(ballAmount);
+	$("#InfogameTime").val(gameTime);
+	$("#InfomobAmount").val(mobAmount);
 
 	showGame();
 }
@@ -844,11 +958,11 @@ function backDoor(){
 }
 
 function showGame(){
-	currElement.style.display = "none";
-	currElement = document.getElementById("game");
-	currElement.style.display = "block";
+	currElement.hide()
+	currElement = $("#game");
+	currElement.show();
 
-	document.getElementById("fullName").textContent = users[username][1];
+	$("#fullName").text(users[username][1]);
 
 	InitiateGame();
 }
@@ -861,6 +975,14 @@ function openAbout() {
 
 function closeAbout() {
 	document.getElementById("About").close();
+}
+
+function openConclude() {
+	document.getElementById("conclude").showModal();
+}
+
+function closeConclude() {
+	document.getElementById("conclude").close();
 }
 
 var colors = [

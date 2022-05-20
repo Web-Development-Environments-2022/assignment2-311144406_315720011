@@ -2,11 +2,14 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="styles.css">
+		<link rel="shortcut icon" href="#">
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 	</head>
 
 	<body>
@@ -17,15 +20,15 @@
 		<div class="sidebar">
 			
 	
-			<a onclick="showWelcome()"><img src="home.png">welcome</a>
-			<a onclick="showRegistration()"><img src="edit.png">Register</a>
-			<a onclick="showLogIn()"><img src="user.png">Log In</a>
-			<a onclick="openAbout()"><img src="information-button.png">About</a>
+			<a onclick="showWelcome()"><img src="images/home.png">welcome</a>
+			<a onclick="showRegistration()"><img src="images/edit.png">Register</a>
+			<a onclick="showLogIn()"><img src="images/user.png">Log In</a>
+			<a onclick="openAbout()"><img src="images/information-button.png">About</a>
 			<a onclick="backDoor()">Back Door</a>
 			
 		</div> 
 		<div class="header">
-			<div class="logo-container"><h1>PA<span>C</span>MAN</h1><img src="header.jpg"></div>
+			<div class="logo-container"><h1>PA<span>C</span>MAN</h1><img src="images/header.jpg"></div>
 			<div class="info">Pacman by Omer Maimon and Tomer Weitzman</div>
 			
 			
@@ -33,7 +36,7 @@
 		</div>
 
 		<dialog id="About" class="About">
-			<img src="header.jpg">
+			<img src="images/header.jpg">
 
 			<h1>About</h1>
 			<p>This game was created by Omer Maimon and Tomer Weitzman.
@@ -41,6 +44,20 @@
 				 was hard to implement because we need to think of how to make the game look very smooth without people noticing the various changes happening all the time.</p>
 			
 			<button onclick="closeAbout()" class="submit">Close</button>
+		</dialog>
+
+		<dialog id="conclude" class="conclude">
+			<img src="images/header.jpg">
+			<h1>Game Over</h1>
+			<div>
+				<label for="concludeScore">Finall Score:</label>
+				<input id="concludeScore" class="input-box-config" type="button" autocomplete="off"/>
+			</div>
+			<div>
+				<label for="concludeTime">Total Play Time:</label>
+				<input id="concludeTime"  class="input-box-config" type="button" autocomplete="off"/>
+			</div>
+			<button onclick="closeConclude()" class="submit">Close</button>
 		</dialog>
 
 		<div class="content">
@@ -63,44 +80,26 @@
 			</div>
 
 			<div class="register" id="register" style="display: none;">
-				<h1 style="text-align: center;">Register</h1>
-
-				<div>
-					
-					<input id="regUsername" class="input-box" type="text"  placeholder="Your Username" autocomplete="off"/>
-				</div>
-				<div>
-					<input id="regPassword" class="input-box"  placeholder="Your Password" autocomplete="off"/>
-				</div>
-				<div>
-					
-					<input id="regFullName" class="input-box"  placeholder="Your Full name" autocomplete="off"/>
-				</div>
-				<div>
-					
-					<input id="regEmail" class="input-box"  placeholder="Your Email" autocomplete="off"/>
-				</div>
-				<div>
-					
-					<input id="refBirthDate" class="input-box"  placeholder="Your BirthDate" autocomplete="off"/>
-				</div>
-
-			
-				<button onclick="register()" class="submit">Register</button>
+				<form id="registerForm" name="registerForm" action='javascript:register()'>
+					<h1 style="text-align: center;">Register</h1>
+					<input id="regUsername" name="regUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
+					<input id="regPassword" name="regPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
+					<input id="regFullName" name="regFullName" class="input-box" type="text" placeholder="Your Full name" autocomplete="off"/>
+					<input id="regEmail" name="regEmail" class="input-box" type="text" placeholder="Your Email" autocomplete="off"/>
+					<input id="refBirthDate" name="refBirthDate" class="input-box"  placeholder="Your BirthDate" autocomplete="off"/>
+					<input type="submit" class="submit" value="Submit" onclick="register()"/>
+				</form>	
 			</div>
 
 			<div class="login" id="login" style="display: none;">
 				<h1 style="text-align: center;">Login</h1>
 				<div>
-					
 					<input id="logUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
 				</div>
 				<div>
 					<input id="logPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
 				</div>
-				
 				<button onclick="login()" class="submit">Log In</button>
-				
 			</div>
 
 			<div class="config" id="config" style="display: none;">

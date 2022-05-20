@@ -132,7 +132,7 @@ body {
         justify-content: center;
         align-items: center;
         margin-left: 10%;
-        background-image: url(765443.jpg);
+        background-image: url(images/765443.jpg);
         background-size: 100% 100%;
         bottom: 5%;
     }
@@ -256,9 +256,12 @@ body {
             display: block;
             width: 70%;
             height: 35%;
-            background-color: rgb(67, 67, 255);
+            background-color: rgba(0, 0, 120 , 0.685);
             border-radius: 2%;
             margin-top: -2%;
+            border: .15em solid #5757ff;
+            border-radius: .5em;
+            padding: .25em .25em 0 .25em;
            
         }
 
@@ -427,7 +430,7 @@ body {
     .register{
         height: 60%;
         width: 30%;
-        background-image: url(back-login.jpg);
+        background-image: url(images/back-login.jpg);
         background-size: 100% 100%;
         background-position: center;
         margin-top: -10%;
@@ -482,8 +485,10 @@ body {
     .About{
         height:33%;
         width: 30%;
-
         background-color:#1C1C1C;
+        border: .15em solid #5757ff;
+        border-radius: .5em;
+        padding: .25em .25em 0 .25em;
 
     }
     .About h1{
@@ -526,7 +531,7 @@ body {
         height: 40%;
         width: 30%;
       
-        background-image: url(back-login.jpg);
+        background-image: url(images/back-login.jpg);
         background-size: 100% 100%;
         background-position: center;
         margin-top: -10%;
@@ -546,7 +551,7 @@ body {
         height: 90%;
         width: 45%;
       
-        background-image: url(back-login.jpg);
+        background-image: url(images/back-login.jpg);
         background-size: 100% 100%;
         background-position: center;
         margin-top: 1%;
@@ -639,10 +644,35 @@ body {
         box-sizing: border-box;
         font-size: small;
         color: white;
-
-
     }
   
+    .conclude{
+        height:33%;
+        width: 30%;
+        background-color:#000000;
+        border: .15em solid #5757ff;
+        border-radius: .5em;
+        padding: .25em .25em 0 .25em;
+    }
+
+    .conclude h1{
+        text-align: center;
+        margin-top: -7%;
+        color: #ffffb3;
+    }
+
+    .conclude label{
+        text-align: left;
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-style: italic;
+        color: #d3d3d3;
+        
+    }
+    .conclude image{
+        width: 100%;
+        text-align: center;
+    }
 
   
  

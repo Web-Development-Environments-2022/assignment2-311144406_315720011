@@ -614,6 +614,7 @@ body {
         font-size: large;
         color: #000;
         background-color: gray;
+        margin-top: 3%;
 
     }
     .input-box-config-ball{
@@ -660,18 +661,34 @@ body {
         margin-top: -7%;
         color: #ffffb3;
     }
+    .conclude h2{
+        font-weight: 500;
+        font-size:40px;
+        text-align: left;
+        margin-bottom: 3%;
+        color: darkgray;
+        text-align: center;
+    }
 
     .conclude label{
-        text-align: left;
-        font-size: large;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-style: italic;
-        color: #d3d3d3;
+        font-weight: 200;
+        font-size:large;
+        text-align: center;
+      
+        color: darkgray;
         
     }
     .conclude image{
         width: 100%;
         text-align: center;
+    }
+    .top-right-but {
+        position: relative;
+        background: red;
+        color: white;
+        top: 10px;
+        right: 10px;
+        float: right;
     }
 
   

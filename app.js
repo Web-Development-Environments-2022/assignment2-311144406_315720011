@@ -8,6 +8,12 @@ prize.img = new Image();
 prize.img.src =  'images/prize.png';
 
 
+var teleport = new Object();
+teleport.on = false;
+teleport.timer = new Date();
+teleport.img = new Image();
+teleport.img.src = 'images/wormHole.png';
+
 var ghostRed = new Object();
 ghostRed.img = new Image();
 ghostRed.img.src =  'images/ghostRedRight.png';
@@ -29,13 +35,13 @@ mobTurn = false;
 var ghosts = Array();
 ghosts.push(ghostRed, ghostBlue, ghostOrange, ghostPink)
 
-var boardMemory = {6:0, 7:0, 8:0, 9:0};
+var boardMemory = {6:0, 7:0, 9:0, 8:0, 10:0, 11:0, 12:0};
 var possibleMoves = Array();
 var board;
 var freeCells = [];
 var lives;
 var score;
-var pac_color;
+var ballLeft;
 var start_time;
 var time_elapsed;
 var time_remaining;
@@ -45,6 +51,10 @@ var startGameAudio = new Audio('sounds/startGame.wav');
 var pacDeathAudio = new Audio('sounds/pacDeath.wav');
 var pacMunchAudio = new Audio('sounds/pacMunch.wav');
 var pacFruitAudio = new Audio('sounds/pacFruit.wav');
+var frenzyAudio = new Audio('sounds/frenzy.mp3');
+var eatGhostAudio = new Audio('sounds/eatGhost.wav');
+var teleportAudio = new Audio('sounds/teleport.mp3');
+var music = new Audio('sounds/Time.wav');
 
 //DOM Control
 var currElement;
@@ -73,8 +83,6 @@ var gameTime = 300;
 var mobAmount = 2;
 
 
-
-
 $(document).ready(function() {
 	users["k"] = ["k", "K Mistirio", "K@kmail.kom", "1/1/90"];
 	context = canvas.getContext("2d");
@@ -85,9 +93,9 @@ $(document).ready(function() {
 async function InitiateGame() {
 	board = new Array();
 	score = 0;
-	pac_color = "yellow";
-	var food_remain = ballAmount;
-	lives = 1; // CHANGE
+	pacman.color = "yellow";
+	ballLeft = ballAmount;
+	lives = 2; // CHANGE
 	direction = 1;
 	start_time = new Date();
 	var currentTime = new Date();
@@ -203,28 +211,22 @@ async function InitiateGame() {
 	console.log(ballAmount);
 	
 	//Set Balls
-	while (freeCells.length > 0 && food_remain > 0) {
-		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)];
-		freeCells.splice(freeCells.indexOf(emptyCell),1);
-		if(((ballAmount - food_remain) * 1.0) / ballAmount < 0.6){
+	while (freeCells.length > 0 && ballLeft > 0) {
+		emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
+		
+		if(((ballAmount - ballLeft) * 1.0) / ballAmount < 0.6){
 			board[emptyCell[0]][emptyCell[1]] = 2; //Common Ball
 		}
-		else if(((ballAmount - food_remain) * 1.0) / ballAmount < 0.9){
+		else if(((ballAmount - ballLeft) * 1.0) / ballAmount < 0.9){
 			board[emptyCell[0]][emptyCell[1]] = 3; //Rare Ball
 		}
 		else{
 			board[emptyCell[0]][emptyCell[1]] = 4; //Legendary Ball
 		}
-		food_remain--;
+		ballLeft--;
 	}
 
-	//TO REMOVE
-	console.log(food_remain);
-	console.log(ballAmount);
-	console.log(countballs());
-
-
-	ballAmount = ballAmount - food_remain;
+	ballLeft = ballAmount - ballLeft;
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -243,10 +245,11 @@ async function InitiateGame() {
 	Draw();
 	await waitForAudio(startGameAudio);
 	start_time = new Date();
+	teleport.timer = new Date();
 	interval = setInterval(UpdatePosition, 250);
 }
 
-//TO REMOVE
+//Utility
 function countballs(){
 	let count = 0;
 	for (var i = 0; i < 20; i++) {
@@ -265,13 +268,28 @@ async function restart(){
 	freeCells = [];
 	for (var i = 0; i < 20; i++) {
 		for (var j = 0; j < 10; j++) {
-			if (board[i][j] == 0 || board[i][j] > 5 ){
-				board[i][j] = 0;
+			if (board[i][j] == 0){
 				freeCells.push([i,j]);
 			}
 		}
 	}
+}
 
+function clearFreeCells(){
+	freeCells = new Array();
+	for (var i = 0; i < 20; i++) {
+		for (var j = 0; j < 10; j++) {
+			if (board[i][j] > 5 ){
+				board[i][j] = boardMemory[board[i][j]];
+			}
+		}
+	}
+}
+			
+
+async function restart(){
+	clearFreeCells();
+	getFreeCells();
 	setPacman();
 	setPrize();
 	setRedGhost();
@@ -286,6 +304,8 @@ async function restart(){
 	}
 	Draw();
 	await waitForAudio(startGameAudio);
+	teleport.on = false;
+	teleport.timer = new Date();
 	interval = setInterval(UpdatePosition, 250);
 }
 
@@ -308,32 +328,28 @@ function setPrize(){
 
 function setRedGhost(){
 	emptyCell = [0,0]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 7;
+	board[emptyCell[0]][emptyCell[1]] = 9;
 	ghostRed.i = emptyCell[0];
 	ghostRed.j = emptyCell[1];
 }
 
 function setBlueGhost(){
 	emptyCell = [19,9]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 8;
+	board[emptyCell[0]][emptyCell[1]] = 10;
 	ghostBlue.i = emptyCell[0];
 	ghostBlue.j = emptyCell[1];
 }
 
 function setOrangeGhost(){
 	emptyCell = [19,0]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 9;
+	board[emptyCell[0]][emptyCell[1]] = 11;
 	ghostOrange.i = emptyCell[0];
 	ghostOrange.j = emptyCell[1];
 }
 
 function setPinkGhost(){
 	emptyCell = [0,9]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 10;
+	board[emptyCell[0]][emptyCell[1]] = 12;
 	ghostPink.i = emptyCell[0];
 	ghostPink.j = emptyCell[1];
 }
@@ -343,7 +359,8 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	timeLeft.value = time_remaining;
-	ballNumber.value = ballAmount;
+	ballNumber.value = ballLeft;
+	livesLeft.value = lives;
 	for (var i = 0; i < 20; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -404,23 +421,33 @@ function Draw() {
 					context.drawImage(prize.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
-				//Red Ghost
+				//lemon
 				case(7):{
+					context.drawImage(lemon.img, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
+				//teleport
+				case(8):{
+					context.drawImage(teleport.img, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
+				//Red Ghost
+				case(9):{
 					context.drawImage(ghostRed.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Blue Ghost
-				case(8):{
+				case(10):{
 					context.drawImage(ghostBlue.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Orange Ghost
-				case(9):{
+				case(11):{
 					context.drawImage(ghostOrange.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Pink Ghost
-				case(10):{
+				case(12):{
 					context.drawImage(ghostPink.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
@@ -451,33 +478,21 @@ function waitForAudio(audio){
 async function UpdatePosition() {
 	board[pacman.i][pacman.j] = 0;
 	handlePacMove();
-	if (board[pacman.i][pacman.j] == 2) {
-		pacMunchAudio.play();
-		score += 5;
-		ballAmount--;
-	}
-	else if (board[pacman.i][pacman.j] == 3) {
-		pacMunchAudio.play();
-		score += 15;
-		ballAmount--;
-	}
-	else if (board[pacman.i][pacman.j] == 4){
-		pacMunchAudio.play();
-		score += 25;
-		ballAmount--;
-	}
-	if (board[pacman.i][pacman.j] == 6){
-		pacFruitAudio.load();
-		pacFruitAudio.play();
-		score += 50;
-	}
-	board[pacman.i][pacman.j] = 1;
+	handlePacPosition(board[pacman.i][pacman.j]);
 
-	if(board[prize.i][prize.j] == 6 && mobTurn == true){
+	//handle prize
+	if(prize.alive && mobTurn == true){
 		board[prize.i][prize.j] = boardMemory[6];
 		handlePrizeMove();
 		if (board[prize.i][prize.j] == 1){
+			handlePacPosition(boardMemory[6]);
+			pacFruitAudio.load();
+			pacFruitAudio.play();
+			prize.alive = false;
 			score += 50;
+		}
+		else if(board[prize.i][prize.j] == 8){
+			stopTeleport(prize, 6);
 		}
 		else{
 			boardMemory[6] = board[prize.i][prize.j];
@@ -485,7 +500,27 @@ async function UpdatePosition() {
 		}
 	}
 
+	//handle lemon
+	if(lemon.alive && mobTurn == true){
+		board[lemon.i][lemon.j] = boardMemory[7];
+		handleFruitMove(lemon);
+		if (board[lemon.i][lemon.j] == 1){
+			handlePacPosition(boardMemory[7])
+			pacFruitAudio.load();
+			pacFruitAudio.play();
+			lemon.alive = false;
+			startFrenzy();
+		}
+		else if(board[lemon.i][lemon.j] == 8){
+			stopTeleport(lemon, 7);
+		}
+		else{
+			boardMemory[7] = board[lemon.i][lemon.j];
+			board[lemon.i][lemon.j] = 7;
+		}
+	}
 
+	//handle ghosts
 	for (let index = 0; index < mobAmount; index++) {
 		var curr = ghosts[index];
 		if(curr.i == pacman.i && curr.j == pacman.j){
@@ -496,26 +531,61 @@ async function UpdatePosition() {
 			board[curr.i][curr.j] = boardMemory[7 + index];
 			handleGhostMove(curr);
 			if(curr.i == pacman.i && curr.j == pacman.j){
-				board[curr.i][curr.j] = 7 + index;
-				GameOver();
+				if(frenzy.on){
+					eatGhostAudio.play();
+					curr.alive = false;
+					score += 10;
+					handlePacPosition(boardMemory[9 + index])
+				}
+				else{
+					board[curr.i][curr.j] = 9 + index;
+					GameOver();
+				}
+			}
+			else if(mobTurn == true){
+				board[curr.i][curr.j] = boardMemory[9 + index];
+				handleGhostMove(curr);
+				if(curr.i == pacman.i && curr.j == pacman.j){
+					if(frenzy.on){
+						eatGhostAudio.play();
+						curr.alive = false;
+						score += 10;
+					}
+					else{
+						board[curr.i][curr.j] = 9 + index;
+						GameOver();
+					}
+				}
+				else if(board[curr.i][curr.j] == 8){
+					stopTeleport(curr, 9 + index);
+				}
+				else{
+					boardMemory[9 + index] = board[curr.i][curr.j] < 5 ? board[curr.i][curr.j] : 0;
+					board[curr.i][curr.j] = 9 + index;
+				}
 			}
 			boardMemory[7 + index] = board[curr.i][curr.j] < 5 ? board[curr.i][curr.j] : 0;
 			board[curr.i][curr.j] = 7 + index;
 		}
 	}
-	
 
 	mobTurn = !mobTurn;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	time_remaining = Math.floor(gameTime - time_elapsed);
-	if (ballAmount == 0) {
+	if(!teleport.on && (currentTime - teleport.timer) / 1000 >= 6){
+		getFreeCells();
+		startTeleport();
+	}
+	else if(frenzy.on && (currentTime - frenzy.timer) / 1000 >= 11.5){
+		stopFrenzy();
+	}
+	if (ballLeft == 0) {
 		window.clearInterval(interval);
 		conclude();
 	}
 	else if(time_remaining <= 0){
-		lives = 1;
-		GameOver();
+		coclude();
 	}
 	else {
 		Draw();
@@ -600,18 +670,60 @@ function GetKeyPressed() {
 	}
 }
 
+function handlePacPosition(num){
+	switch(num){
+		case(2):{
+			pacMunchAudio.play();
+			score += 5;
+			ballLeft--;
+		}
+		break;
+		case(3):{
+			pacMunchAudio.play();
+			score += 15;
+			ballLeft--;
+		}
+		break;
+		case(4):{
+			pacMunchAudio.play();
+			score += 25;
+			ballLeft--;
+		}
+		break;
+		case(6):{
+			pacFruitAudio.load();
+			pacFruitAudio.play();
+			prize.alive = false;
+			score += 50;
+		}
+		break;
+		case(7):{
+			pacFruitAudio.load();
+			pacFruitAudio.play();
+			lemon.alive = false;
+			startFrenzy();
+		}
+		break;
+		case(8):{
+			stopTeleport(pacman, 1);
+		}
+		break;
+	}
+	board[pacman.i][pacman.j] = 1;
+}
+
 function getPossibleMoves(i, j){
 	possibleMoves = Array();
-	if (j > 0 && board[i][j - 1] != 5) {
+	if (j > 0 && (board[i][j - 1] < 5 || board[i][j - 1] == 8)) {
 		possibleMoves.push([0,-1]);
 	}
-	if (j < 9 && board[i][j + 1] != 5) {
+	if (j < 9 && (board[i][j + 1] < 5 || board[i][j + 1] == 8)) {
 		possibleMoves.push([0,1]);
 	}
-	if (i > 0 && board[i - 1][j] != 5) {
+	if (i > 0 && (board[i - 1][j] < 5 || board[i - 1][j] == 8)) {
 		possibleMoves.push([-1,0]);
 	}
-	if (i < 19 && board[i + 1][j] != 5) {
+	if (i < 19 && (board[i + 1][j] < 5 || board[i + 1][j] == 8)) {
 		possibleMoves.push([1,0]);
 	}
 
@@ -625,6 +737,53 @@ function handlePrizeMove(){
 	}
 }
 
+function startFrenzy(){
+	frenzy.on = true;
+	pacman.color = "red";
+	frenzy.timer = new Date();
+	music.pause();
+	frenzyAudio.play();
+
+}
+
+function stopFrenzy(){
+	frenzy.on = false;
+	pacman.color = "yellow";
+	frenzyAudio.pause();
+	music.play();
+}
+
+function startTeleport(){
+	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
+	teleport.i1 = emptyCell[0];
+	teleport.j1 = emptyCell[1];
+	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
+	teleport.i2 = emptyCell[0];
+	teleport.j2 = emptyCell[1];
+	board[teleport.i1][teleport.j1] = 8;
+	board[teleport.i2][teleport.j2] = 8;
+	teleport.on = true;
+	teleport.timer = new Date();
+}
+
+function stopTeleport(mob, num){
+	teleportAudio.play();
+	teleport.on = false;
+	if(teleport.i1 == mob.i && teleport.j1 == mob.j){
+		board[teleport.i1][teleport.j1] = 0;
+		board[teleport.i2][teleport.j2] = num;
+		mob.i = teleport.i2;
+		mob.j = teleport.j2;
+	}
+	else{
+		board[teleport.i1][teleport.j1] = num;
+		board[teleport.i2][teleport.j2] = 0;
+		mob.i = teleport.i1;
+		mob.j = teleport.j1;
+	}
+	teleport.timer = new Date();
+}
+
 function handleGhostMove(ghost){
 	var a, b, disP, disV;
 	getPossibleMoves(ghost.i, ghost.j);
@@ -636,7 +795,8 @@ function handleGhostMove(ghost){
 			a = Math.abs(ghost.i + v[0] - pacman.i);
 			b = Math.abs(ghost.j + v[1] - pacman.j);
 			disV = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
-			return ( disP < disV ? p : v );
+
+			return frenzy.on ? ( disP > disV ? p : v ) : ( disP < disV ? p : v );
 		  });
 		  moveMob(ghost, x);
 	}
@@ -657,13 +817,46 @@ function moveMob(mob, x){
 	}
 }
 
+async function GameOver(){
+	lives--;
+	score -= 10;
+	window.clearInterval(interval);
+	await waitForAudio(pacDeathAudio);
+	if(lives <= 0){
+		Draw();
+		conclude();
+	}
+	else{
+		restart();
+	}
+}
+
+function conclude(){
+	$("#concludeScore").val(score);
+	$("#concludeTime").val(time_elapsed);
+	$("#concludeBallsLeft").val(ballLeft);
+	music.pause();
+	music.load();
+	openConclude();
+}
+
 function showWelcome() {
+	if (interval != null){
+		window.clearInterval(interval);
+		music.load();
+		frenzyAudio.load();
+	}
 	currElement.hide();
 	currElement = $("#welcome");
 	currElement.show();
 }
 
 function showRegistration() {
+	if (interval != null){
+		window.clearInterval(interval);
+		music.load();
+		frenzyAudio.load();
+	}
 	currElement.hide();
 	currElement = $("#register");
 	currElement.show();
@@ -762,6 +955,11 @@ $(document).ready(function() {
 });
 
 function showLogIn() {
+	if (interval != null){
+		window.clearInterval(interval);
+		music.load();
+		frenzyAudio.load();
+	}
 	currElement.hide();
 	currElement = $("#login");
 	currElement.show();
@@ -983,6 +1181,11 @@ function openConclude() {
 
 function closeConclude() {
 	document.getElementById("conclude").close();
+}
+
+function tryAgain(){
+	document.getElementById("conclude").close();
+	showGame();
 }
 
 var colors = [

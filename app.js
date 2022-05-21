@@ -6,33 +6,58 @@ var pacman = new Object();
 var prize = new Object();
 prize.img = new Image();
 prize.img.src =  'images/prize.png';
+prize.alive = true;
 
+var lemon = new Object();
+lemon.img = new Image();
+lemon.img.src = 'images/lemon.png';
+lemon.alive = true;
+
+var frenzy = new Object();
+frenzy.on = false;
+frenzy.timer = new Date();
 
 var ghostRed = new Object();
-ghostRed.img = new Image();
-ghostRed.img.src =  'images/ghostRedRight.png';
+ghostRed.rightImg = new Image();
+ghostRed.leftImg = new Image();
+ghostRed.rightImg.src = 'images/ghostRedRight.png';
+ghostRed.leftImg.src = 'images/ghostRedLeft.png';
+ghostRed.img = ghostRed.rightImg;
+ghostRed.alive = true;
 
 var ghostBlue = new Object();
-ghostBlue.img = new Image();
-ghostBlue.img.src =  'images/ghostBlueRight.png';
+ghostBlue.rightImg = new Image();
+ghostBlue.leftImg = new Image();
+ghostBlue.rightImg.src = 'images/ghostBlueRight.png';
+ghostBlue.leftImg.src = 'images/ghostBlueLeft.png';
+ghostBlue.img = ghostBlue.rightImg;
+ghostBlue.alive = true;
 
 var ghostOrange = new Object();
-ghostOrange.img = new Image();
-ghostOrange.img.src =  'images/ghostOrangeRight.png';
+ghostOrange.rightImg = new Image();
+ghostOrange.leftImg = new Image();
+ghostOrange.rightImg.src = 'images/ghostOrangeRight.png'
+ghostOrange.leftImg.src = 'images/ghostOrangeLeft.png'
+ghostOrange.img = ghostOrange.rightImg;
+ghostOrange.alive = true;
 
 var ghostPink = new Object();
-ghostPink.img = new Image();
-ghostPink.img.src =  'images/ghostPinkRight.png';
+ghostPink.rightImg = new Image();
+ghostPink.leftImg = new Image();
+ghostPink.rightImg.src = 'images/ghostPinkRight.png'
+ghostPink.leftImg.src = 'images/ghostPinkLeft.png'
+ghostPink.img = ghostPink.rightImg;
+ghostPink.alive = true;
 
 mobTurn = false;
 
 var ghosts = Array();
 ghosts.push(ghostRed, ghostBlue, ghostOrange, ghostPink)
 
-var boardMemory = {6:0, 7:0, 8:0, 9:0};
+var boardMemory = {6:0, 7:0, 8:0, 9:0, 10:0, 11:0};
 var possibleMoves = Array();
 var board;
-var freeCells = [];
+var freeCells;
 var lives;
 var score;
 var pac_color;
@@ -45,6 +70,8 @@ var startGameAudio = new Audio('sounds/startGame.wav');
 var pacDeathAudio = new Audio('sounds/pacDeath.wav');
 var pacMunchAudio = new Audio('sounds/pacMunch.wav');
 var pacFruitAudio = new Audio('sounds/pacFruit.wav');
+var frenzyAudio = new Audio('sounds/frenzy.mp3');
+var music = new Audio('sounds/Time.wav');
 
 //DOM Control
 var currElement;
@@ -84,10 +111,11 @@ $(document).ready(function() {
 
 async function InitiateGame() {
 	board = new Array();
+	freeCells = new Array();
 	score = 0;
-	pac_color = "yellow";
+	pacman.color = "yellow";
 	var food_remain = ballAmount;
-	lives = 1; // CHANGE
+	lives = 2; // CHANGE
 	direction = 1;
 	start_time = new Date();
 	var currentTime = new Date();
@@ -179,7 +207,9 @@ async function InitiateGame() {
 			){
 				board[i][j] = 5;
 			} else {
-				freeCells.push([i,j])
+				if (!((i == 0 && (j == 0 || j == 9)) || (i == 19 && (j == 0 || j == 9)))){
+					freeCells.push([i,j])
+				}
 				board[i][j] = 0;
 			}
 		}
@@ -187,6 +217,7 @@ async function InitiateGame() {
 
 	setPacman();
 	setPrize();
+	setLemon();
 	setRedGhost();
 	if(mobAmount >= 2){
 		setBlueGhost();
@@ -197,15 +228,11 @@ async function InitiateGame() {
 	if(mobAmount == 4){
 		setPinkGhost();
 	}
-
-	//TO REMOVE
-	console.log(food_remain);
-	console.log(ballAmount);
 	
 	//Set Balls
 	while (freeCells.length > 0 && food_remain > 0) {
-		emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)];
-		freeCells.splice(freeCells.indexOf(emptyCell),1);
+		emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
+		
 		if(((ballAmount - food_remain) * 1.0) / ballAmount < 0.6){
 			board[emptyCell[0]][emptyCell[1]] = 2; //Common Ball
 		}
@@ -217,12 +244,6 @@ async function InitiateGame() {
 		}
 		food_remain--;
 	}
-
-	//TO REMOVE
-	console.log(food_remain);
-	console.log(ballAmount);
-	console.log(countballs());
-
 
 	ballAmount = ballAmount - food_remain;
 	keysDown = {};
@@ -242,6 +263,8 @@ async function InitiateGame() {
 	);
 	Draw();
 	await waitForAudio(startGameAudio);
+	music.play();
+	music.loop = true;
 	start_time = new Date();
 	interval = setInterval(UpdatePosition, 250);
 }
@@ -259,10 +282,8 @@ function countballs(){
 	return count;
 }
 
-			
-
-async function restart(){
-	freeCells = [];
+function getFreeCells(){
+	freeCells = new Array();
 	for (var i = 0; i < 20; i++) {
 		for (var j = 0; j < 10; j++) {
 			if (board[i][j] == 0 || board[i][j] > 5 ){
@@ -271,9 +292,15 @@ async function restart(){
 			}
 		}
 	}
+}
+			
+
+async function restart(){
+	getFreeCells();
 
 	setPacman();
 	setPrize();
+	setLemon();
 	setRedGhost();
 	if(mobAmount >= 2){
 		setBlueGhost();
@@ -291,59 +318,68 @@ async function restart(){
 
 
 function setPacman(){
-	var emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
+	var emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
 	board[emptyCell[0]][emptyCell[1]] = 1;
 	pacman.i = emptyCell[0];
 	pacman.j = emptyCell[1];
 }
 
 function setPrize(){
-	emptyCell = freeCells[Math.floor(Math.random()*freeCells.length)]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
+	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
 	board[emptyCell[0]][emptyCell[1]] = 6;
 	prize.i = emptyCell[0];
 	prize.j = emptyCell[1];
+	prize.alive = true;
+}
+
+function setLemon(){
+	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
+	board[emptyCell[0]][emptyCell[1]] = 7;
+	lemon.i = emptyCell[0];
+	lemon.j = emptyCell[1];
+	lemon.alive = true;
 }
 
 function setRedGhost(){
 	emptyCell = [0,0]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 7;
+	board[emptyCell[0]][emptyCell[1]] = 8;
 	ghostRed.i = emptyCell[0];
 	ghostRed.j = emptyCell[1];
+	ghostRed.alive = true;
 }
 
 function setBlueGhost(){
 	emptyCell = [19,9]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 8;
+	board[emptyCell[0]][emptyCell[1]] = 9;
 	ghostBlue.i = emptyCell[0];
 	ghostBlue.j = emptyCell[1];
+	ghostBlue.alive = true;
 }
 
 function setOrangeGhost(){
 	emptyCell = [19,0]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 9;
+	board[emptyCell[0]][emptyCell[1]] = 10;
 	ghostOrange.i = emptyCell[0];
 	ghostOrange.j = emptyCell[1];
+	ghostOrange.alive = true;
 }
 
 function setPinkGhost(){
 	emptyCell = [0,9]; 
-	freeCells.splice(freeCells.indexOf(emptyCell),1);
-	board[emptyCell[0]][emptyCell[1]] = 10;
+	board[emptyCell[0]][emptyCell[1]] = 11;
 	ghostPink.i = emptyCell[0];
 	ghostPink.j = emptyCell[1];
+	ghostPink.alive = true;
 }
 
 
 function Draw() {
+	console.log(countballs());
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	timeLeft.value = time_remaining;
 	ballNumber.value = ballAmount;
+	livesLeft.value = lives;
 	for (var i = 0; i < 20; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -355,7 +391,7 @@ function Draw() {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, (0.15 + 0.5*(direction - 1)) * Math.PI, (1.85 + 0.5*(direction - 1)) * Math.PI); // half circle
 					context.lineTo(center.x, center.y);
-					context.fillStyle = pac_color; //color
+					context.fillStyle = pacman.color; //color
 					context.fill();
 					context.beginPath();
 					
@@ -404,23 +440,28 @@ function Draw() {
 					context.drawImage(prize.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
-				//Red Ghost
+				//lemon
 				case(7):{
+					context.drawImage(lemon.img, center.x - 30, center.y - 30, 60, 60);
+				}
+				break;
+				//Red Ghost
+				case(8):{
 					context.drawImage(ghostRed.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Blue Ghost
-				case(8):{
+				case(9):{
 					context.drawImage(ghostBlue.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Orange Ghost
-				case(9):{
+				case(10):{
 					context.drawImage(ghostOrange.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
 				//Pink Ghost
-				case(10):{
+				case(11):{
 					context.drawImage(ghostPink.img, center.x - 30, center.y - 30, 60, 60);
 				}
 				break;
@@ -469,14 +510,24 @@ async function UpdatePosition() {
 	if (board[pacman.i][pacman.j] == 6){
 		pacFruitAudio.load();
 		pacFruitAudio.play();
+		prize.alive = false;
 		score += 50;
+	}
+	if (board[pacman.i][pacman.j] == 7){
+		pacFruitAudio.load();
+		pacFruitAudio.play();
+		lemon.alive = false;
+		startFrenzy();
 	}
 	board[pacman.i][pacman.j] = 1;
 
-	if(board[prize.i][prize.j] == 6 && mobTurn == true){
+	if(prize.alive && mobTurn == true){
 		board[prize.i][prize.j] = boardMemory[6];
-		handlePrizeMove();
+		handleFruitMove(prize);
 		if (board[prize.i][prize.j] == 1){
+			pacFruitAudio.load();
+			pacFruitAudio.play();
+			prize.alive = false;
 			score += 50;
 		}
 		else{
@@ -485,22 +536,52 @@ async function UpdatePosition() {
 		}
 	}
 
+	if(lemon.alive && mobTurn == true){
+		board[lemon.i][lemon.j] = boardMemory[7];
+		handleFruitMove(lemon);
+		if (board[lemon.i][lemon.j] == 1){
+			pacFruitAudio.load();
+			pacFruitAudio.play();
+			lemon.alive = false;
+			startFrenzy();
+		}
+		else{
+			boardMemory[7] = board[lemon.i][lemon.j];
+			board[lemon.i][lemon.j] = 7;
+		}
+	}
 
 	for (let index = 0; index < mobAmount; index++) {
 		var curr = ghosts[index];
-		if(curr.i == pacman.i && curr.j == pacman.j){
-			board[curr.i][curr.j] = 7 + index;
-			GameOver();
-		}
-		if(mobTurn == true){
-			board[curr.i][curr.j] = boardMemory[7 + index];
-			handleGhostMove(curr);
+		if (curr.alive){
 			if(curr.i == pacman.i && curr.j == pacman.j){
-				board[curr.i][curr.j] = 7 + index;
-				GameOver();
+				if(frenzy.on){
+					curr.alive = false;
+					score += 10;
+				}
+				else{
+					board[curr.i][curr.j] = 8 + index;
+					GameOver();
+				}
 			}
-			boardMemory[7 + index] = board[curr.i][curr.j] < 5 ? board[curr.i][curr.j] : 0;
-			board[curr.i][curr.j] = 7 + index;
+			else if(mobTurn == true){
+				board[curr.i][curr.j] = boardMemory[8 + index];
+				handleGhostMove(curr);
+				if(curr.i == pacman.i && curr.j == pacman.j){
+					if(frenzy.on){
+						curr.alive = false;
+						score += 10;
+					}
+					else{
+						board[curr.i][curr.j] = 8 + index;
+						GameOver();
+					}
+				}
+				else{
+					boardMemory[8 + index] = board[curr.i][curr.j] < 5 ? board[curr.i][curr.j] : 0;
+					board[curr.i][curr.j] = 8 + index;
+				}
+			}
 		}
 	}
 	
@@ -509,6 +590,10 @@ async function UpdatePosition() {
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	time_remaining = Math.floor(gameTime - time_elapsed);
+	if(frenzy.on && (currentTime - frenzy.timer) / 1000 >= 11.5){
+		stopFrenzy();
+	}
+
 	if (ballAmount == 0) {
 		window.clearInterval(interval);
 		conclude();
@@ -520,32 +605,7 @@ async function UpdatePosition() {
 	else {
 		Draw();
 	}
-
-
-
-
 }
-
-async function GameOver(){
-	lives--;
-	score -= 10;
-	window.clearInterval(interval);
-	await waitForAudio(pacDeathAudio);
-	if(lives <= 0){
-		Draw();
-		conclude();
-	}
-	else{
-		restart();
-	}
-}
-
-function conclude(){
-	$("#concludeScore").val(score);
-	$("#concludeTime").val(time_elapsed)
-	openConclude();
-}
-
 
 function handlePacMove(){
 	var x = GetKeyPressed();
@@ -602,27 +662,55 @@ function GetKeyPressed() {
 
 function getPossibleMoves(i, j){
 	possibleMoves = Array();
-	if (j > 0 && board[i][j - 1] != 5) {
+	if (j > 0 && board[i][j - 1] < 5) {
 		possibleMoves.push([0,-1]);
 	}
-	if (j < 9 && board[i][j + 1] != 5) {
+	if (j < 9 && board[i][j + 1] < 5) {
 		possibleMoves.push([0,1]);
 	}
-	if (i > 0 && board[i - 1][j] != 5) {
+	if (i > 0 && board[i - 1][j] < 5) {
 		possibleMoves.push([-1,0]);
 	}
-	if (i < 19 && board[i + 1][j] != 5) {
+	if (i < 19 && board[i + 1][j] < 5) {
 		possibleMoves.push([1,0]);
 	}
 
 }
 
-function handlePrizeMove(){
-	getPossibleMoves(prize.i, prize.j);
+function handleFruitMove(fruit){
+	getPossibleMoves(fruit.i, fruit.j);
 	if(possibleMoves.length > 0){
-		x = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
-		moveMob(prize, x);
+		x = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];
+		if(x[1] == -1){
+			fruit.j--;
+		}
+		else if(x[1] == 1){
+			fruit.j++;
+		}
+		else if(x[0] == -1){
+			fruit.i--;
+		}
+		else{
+			fruit.i++;
+		}
 	}
+}
+
+function startFrenzy(){
+	frenzy.on = true;
+	pacman.color = "red";
+	frenzy.timer = new Date();
+	music.pause();
+	frenzyAudio.play();
+
+}
+
+function stopFrenzy(){
+	frenzy.on = false;
+	pacman.color = "yellow";
+	frenzy.timer = new Date();
+	frenzyAudio.pause();
+	music.play();
 }
 
 function handleGhostMove(ghost){
@@ -651,26 +739,58 @@ function moveMob(mob, x){
 	}
 	else if(x[0] == -1){
 		mob.i--;
+		mob.img = mob.leftImg;
 	}
 	else{
 		mob.i++;
+		mob.img = mob.rightImg;
 	}
 }
 
+async function GameOver(){
+	lives--;
+	score -= 10;
+	window.clearInterval(interval);
+	await waitForAudio(pacDeathAudio);
+	if(lives <= 0){
+		Draw();
+		conclude();
+	}
+	else{
+		restart();
+	}
+}
+
+function conclude(){
+	$("#concludeScore").val(score);
+	$("#concludeTime").val(time_elapsed);
+	music.pause();
+	music.load();
+	openConclude();
+}
+
 function showWelcome() {
+	if (interval != null){
+		window.clearInterval(interval);
+		music.load();
+	}
 	currElement.hide();
 	currElement = $("#welcome");
 	currElement.show();
 }
 
 function showRegistration() {
+	if (interval != null){
+		window.clearInterval(interval);
+		music.load();
+	}
 	currElement.hide();
 	currElement = $("#register");
 	currElement.show();
 }
 
 function register(){
-	window.clearInterval(interval);
+
 	username = $("#regUsername").val();
 	password = $("#regPassword").val();
 	fullName = $("#regFullName").val();
@@ -762,9 +882,14 @@ $(document).ready(function() {
 });
 
 function showLogIn() {
+	if (interval != null){
+		window.clearInterval(interval);
+		music.load();
+	}
 	currElement.hide();
 	currElement = $("#login");
 	currElement.show();
+	
 }
 
 function login(){

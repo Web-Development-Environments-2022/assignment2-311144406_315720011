@@ -34,21 +34,23 @@
 			
 		
 		</div>
-
+	
 		<dialog id="About" class="About">
 			<img src="images/header.jpg">
+			<button onclick="closeAbout()" class="top-right-but">X</button>
 
 			<h1>About</h1>
 			<p>This game was created by Omer Maimon and Tomer Weitzman.
 			the challenges we faced in creating this game are the use of javascript and html together. Designing a webpage and game dynamiclly
 				 was hard to implement because we need to think of how to make the game look very smooth without people noticing the various changes happening all the time.</p>
 			
-			<button onclick="closeAbout()" class="submit">Close</button>
+			
 		</dialog>
 
 		<dialog id="conclude" class="conclude">
 			<img src="images/header.jpg">
 			<h1>Game Over</h1>
+			<h2 id="conclusion">Winner!!!</h2>
 			<div>
 				<label for="concludeScore">Finall Score:</label>
 				<input id="concludeScore" class="input-box-config" type="button" autocomplete="off"/>
@@ -57,8 +59,12 @@
 				<label for="concludeTime">Total Play Time:</label>
 				<input id="concludeTime"  class="input-box-config" type="button" autocomplete="off"/>
 			</div>
-			<button onclick="closeConclude()" class="submit">Close</button>
-			<button onclick="tryAgain()" class="submit">Close</button>
+			<div>
+				<label for="concludeball">Balls left:</label>
+				<input id="concludeball"  class="input-box-config" type="button" autocomplete="off"/>
+			</div>
+			<button onclick="closeConclude()" class="but-config">Close</button>
+			<button onclick="tryAgain()" class="but-config">Play again</button>
 		</dialog>
 
 		<div class="content">

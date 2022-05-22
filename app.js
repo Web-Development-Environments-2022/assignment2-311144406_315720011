@@ -610,6 +610,7 @@ async function UpdatePosition() {
 		stopFrenzy();
 	}
 	if (ballLeft == 0) {
+		Draw();
 		window.clearInterval(interval);
 		conclude();
 	}
@@ -841,6 +842,7 @@ async function GameOver(){
 	await waitForAudio(pacDeathAudio);
 	if(lives <= 0){
 		Draw();
+		$("#conclusiontitle").text("Loser!");
 		conclude();
 	}
 	else{

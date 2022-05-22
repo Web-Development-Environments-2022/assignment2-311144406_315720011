@@ -657,22 +657,42 @@ body {
 
     .conclude h1{
         text-align: center;
-        margin-top: -7%;
+        margin-top: -5%;
         color: #ffffb3;
     }
-
+    .conclude h2{
+        text-align: center;
+        margin-top: -2%;
+        font-size:30px;
+        color: darkgray;
+    }
     .conclude label{
-        text-align: left;
-        font-size: large;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-style: italic;
-        color: #d3d3d3;
-        
+        font-weight: 200;
+        font-size:25px;
+        text-align: center;
+      
+        color: darkgray;
     }
     .conclude image{
         width: 100%;
         text-align: center;
     }
-
+    .but-config-conclude{
+        width: 40%;
+        border:1px solid #fff;
+        margin-left: 5%;
+        height: 25px;
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: large;
+        color: #000;
+        background-color: gray;
+        margin-top: 5%;
+    }
   
  

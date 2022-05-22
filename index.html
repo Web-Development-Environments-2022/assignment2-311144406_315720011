@@ -48,7 +48,9 @@
 
 		<dialog id="conclude" class="conclude">
 			<img src="images/header.jpg">
-			<h1>Game Over</h1>
+			<div><h1>Game Over</h1></div>
+			<div><h2 id="conclusiontitle">Winner!!!</h2></div>
+			
 			<div>
 				<label for="concludeScore">Finall Score:</label>
 				<input id="concludeScore" class="input-box-config" type="button" autocomplete="off"/>
@@ -61,8 +63,8 @@
 				<label for="concludeBallsLeft">Balls Left:</label>
 				<input id="concludeBallsLeft"  class="input-box-config" type="button" autocomplete="off"/>
 			</div>
-			<button onclick="closeConclude()" class="submit">Close</button>
-			<button onclick="tryAgain()" class="submit">Try</button>
+			<button onclick="closeConclude()" class="but-config-conclude">Close</button>
+			<button onclick="tryAgain()" class="but-config-conclude">Try Again</button>
 		</dialog>
 
 		<div class="content">

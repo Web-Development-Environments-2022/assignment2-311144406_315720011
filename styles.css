@@ -507,33 +507,6 @@ body {
         cursor: pointer;
         font-size: x-large;
     }
-    .About{
-        height:33%;
-        width: 30%;
-        background-color:#1C1C1C;
-        border: .15em solid #5757ff;
-        border-radius: .5em;
-        padding: .25em .25em 0 .25em;
-
-    }
-    .About h1{
-        text-align: center;
-        margin-top: -7%;
-        color: #ffffb3;
-    }
-    .About p{
-        text-align: left;
-        font-size: large;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-style: italic;
-        color: #818181;
-        
-    }
-    .About image{
-       
-        width: 100%;
-       text-align: center;
-    }
     .submit{
         width: 100%;
         background: transparent;
@@ -719,5 +692,55 @@ body {
         background-color: gray;
         margin-top: 5%;
     }
+    .About {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        
+        top: 0;
+        padding: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full h
+        eight */
+       
+       
+      }
+      
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #203344;;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+      .modal-content h1{
+          text-align: center;
+          color: #ffffb3;
+          font-size: 40px;
+      }
+      .modal-content p{
+        text-align: left;
+        font-size: x-large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-style: italic;
+        color:grey;
+        
+      }
+      
+      /* The Close Button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
   
  

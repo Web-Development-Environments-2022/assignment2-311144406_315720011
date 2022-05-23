@@ -90,7 +90,7 @@ body {
    .sidebar a {
     padding: 20%;
     text-decoration: none;
-    font-size: 3vh;
+    font-size: 3.2vh;
     font-style: oblique;
     color: #818181;
     display: block;
@@ -107,7 +107,7 @@ body {
 
   .sidebar img{
       width: 100%;
-      height: 5%;
+      height: 80%;
   }
 
     .content{
@@ -195,8 +195,6 @@ body {
             text-align: center;
             color: darkgray;
         }
-
-
 
         .game .data{
             margin: auto;
@@ -563,6 +561,7 @@ body {
         text-align: center;
     }
     .config label{
+        margin-left: 1vw;
         font-weight: 200;
         font-size: 2vh;
         text-align: center;

@@ -1091,6 +1091,10 @@ function changeColor60(){
 	else{
 		color60Ball ++;
 	}
+	updateColor60();
+}
+
+function updateColor60(){
 	$("#color60Ball").css("backgroundColor", colors[color60Ball]);
 	$("#Infocolor60Ball").css("backgroundColor", colors[color60Ball]);
 	if(color60Ball == 7 || color60Ball == 4){
@@ -1101,7 +1105,6 @@ function changeColor60(){
 		$("#color60Ball").css("color", "black");
 		$("#Infocolor60Ball").css("color", "black");
 	}
-
 }
 
 function changeColor30(){
@@ -1111,6 +1114,10 @@ function changeColor30(){
 	else{
 		color30Ball ++;
 	}
+	updateColor30();
+}
+
+function updateColor30(){
 	$("#color30Ball").css("backgroundColor", colors[color30Ball]);
 	$("#Infocolor30Ball").css("backgroundColor", colors[color30Ball]);
 	if(color30Ball == 7 || color30Ball == 4){
@@ -1130,6 +1137,10 @@ function changeColor10(){
 	else{
 		color10Ball ++;
 	}
+	updateColor10();
+}
+
+function updateColor10(){
 	$("#color10Ball").css("backgroundColor", colors[color10Ball]);
 	$("#Infocolor10Ball").css("backgroundColor", colors[color10Ball]);
 	if(color10Ball == 7 || color10Ball == 4){
@@ -1164,7 +1175,9 @@ function saveConfig(){
 	$("#InfoballAmount").val(ballAmount);
 	$("#InfogameTime").val(gameTime);
 	$("#InfomobAmount").val(mobAmount);
-
+	updateColor60();
+	updateColor30();
+	updateColor10();
 	showGame();
 }
 
@@ -1215,10 +1228,6 @@ function openAbout() {
 
 	
 }
-
-// function closeAbout() {
-// 	document.getElementById("About").close();
-// }
 
 function openConclude() {
 	document.getElementById("conclude").showModal();

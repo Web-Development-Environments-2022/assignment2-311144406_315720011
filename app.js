@@ -343,7 +343,7 @@ function setPacman(){
 function setPrize(){
 	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
 	board[emptyCell[0]][emptyCell[1]] = 6;
-	boardMemory[7] = 0;
+	boardMemory[6] = 0;
 	prize.i = emptyCell[0];
 	prize.j = emptyCell[1];
 	prize.alive = true;

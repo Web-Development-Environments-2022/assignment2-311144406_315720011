@@ -88,21 +88,21 @@ body {
   
   /* Style sidebar links */
    .sidebar a {
-    padding: 20%;
-    text-decoration: none;
-    font-size: 3.2vh;
-    font-style: oblique;
-    color: #818181;
-    display: block;
-    font-family: 'Montserrat';
-    border-style:solid;
-    border-color: #000;
-    text-align: center;
+        padding: 20%;
+        text-decoration: none;
+        font-size: 3.2vh;
+        font-style: oblique;
+        color: #818181;
+        display: block;
+        font-family: 'Montserrat';
+        border-style:solid;
+        border-color: #000;
+        text-align: center;
   }
   
    .sidebar a:hover {
-    color: black;
-    background-color:#FFE4C4;
+        color: black;
+        background-color:#FFE4C4;
   }
 
   .sidebar img{

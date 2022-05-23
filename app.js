@@ -271,11 +271,13 @@ async function InitiateGame() {
 	);
 	Draw();
 	await waitForAudio(startGameAudio);
-	music.play();
-	music.loop = true;
-	start_time = new Date();
-	teleport.timer = new Date();
-	interval = setInterval(UpdatePosition, 250);
+	if($("#game").is(":visible")){
+		music.play();
+		music.loop = true;
+		start_time = new Date();
+		teleport.timer = new Date();
+		interval = setInterval(UpdatePosition, 250);
+	}
 }
 
 //Utility
@@ -341,6 +343,7 @@ function setPacman(){
 function setPrize(){
 	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
 	board[emptyCell[0]][emptyCell[1]] = 6;
+	boardMemory[7] = 0;
 	prize.i = emptyCell[0];
 	prize.j = emptyCell[1];
 	prize.alive = true;
@@ -349,6 +352,7 @@ function setPrize(){
 function setLemon(){
 	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
 	board[emptyCell[0]][emptyCell[1]] = 7;
+	boardMemory[7] = 0;
 	lemon.i = emptyCell[0];
 	lemon.j = emptyCell[1];
 	lemon.alive = true;
@@ -356,6 +360,7 @@ function setLemon(){
 
 function setGhost(mob, index){
 	board[mob.emptyCell[0]][mob.emptyCell[1]] = index;
+	boardMemory[index] = 0;
 	mob.i = mob.emptyCell[0];
 	mob.j = mob.emptyCell[1];
 	mob.alive = true;
@@ -585,7 +590,6 @@ async function UpdatePosition() {
 	}
 	mobTurn = !mobTurn;
 	if(!teleport.on && (currentTime - teleport.timer) / 1000 >= 6){
-		getFreeCells();
 		startTeleport();
 	}
 	else if(frenzy.on && (currentTime - frenzy.timer) / 1000 >= 11.5){
@@ -773,6 +777,7 @@ function eatLemon(){
 }
 
 function startTeleport(){
+	getFreeCells();
 	emptyCell = freeCells.splice(Math.floor(Math.random()*freeCells.length),1)[0];
 	teleport.i1 = emptyCell[0];
 	teleport.j1 = emptyCell[1];
@@ -1202,10 +1207,7 @@ function showGame(){
 	InitiateGame();
 }
 
-
-
 function openAbout() {
-
 	var modal = document.getElementById("About");
 	var span = document.getElementsByClassName("close")[0];
 	modal.style.display = "block";
@@ -1222,11 +1224,6 @@ function openAbout() {
 			modal.style.display="none";
 		}
 	  });
-	
-	
-	  
-
-	
 }
 
 function openConclude() {

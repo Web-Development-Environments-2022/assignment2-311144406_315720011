@@ -104,7 +104,7 @@ var color60Ball = 2;
 var color30Ball = 1;
 var color10Ball = 0;
 var ballAmount = 60;
-var gameTime = 300;
+var gameTime = 300; 
 var mobAmount = 2;
 
 
@@ -611,14 +611,20 @@ async function UpdatePosition() {
 	}
 	if (ballLeft == 0) {
 		Draw();
+		$("#conclusiontitle").text("Winner!");
 		window.clearInterval(interval);
 		$("#conclusiontitle").text("Winner!!!");
 		conclude();
 	}
 	else if(time_remaining <= 0){
 		Draw();
+		if(score<100){
+			$("#conclusiontitle").text("You can do better than " + score + " points");
+		}
+		else{
+			$("#conclusiontitle").text("Winner!");
+		}
 		window.clearInterval(interval);
-		$("#conclusiontitle").text("Loser!");
 		conclude();
 	}
 	else {
@@ -858,6 +864,7 @@ function conclude(){
 	$("#concludeScore").val(score);
 	$("#concludeTime").val(time_elapsed);
 	$("#concludeBallsLeft").val(ballLeft);
+	frenzyAudio.load();
 	music.pause();
 	music.load();
 	openConclude();
@@ -1209,7 +1216,7 @@ function closeConclude() {
 
 function tryAgain(){
 	document.getElementById("conclude").close();
-	showGame();
+	showConfig();
 }
 
 var colors = [

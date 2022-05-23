@@ -31,10 +31,10 @@ body {
   .header{
      
      
-     position: fixed;
+   
       height: 5%;
-      width: 90%;
-      margin-left: 10%;
+      width: 100%;
+   
       font-style: italic;
       background-color: black;
       color: wheat;
@@ -75,7 +75,7 @@ body {
       font-family: 'Montserrat';
       color: wheat;
       vertical-align: middle;
-      margin-right: 10%;
+    
 
   }
   .header image{
@@ -87,13 +87,15 @@ body {
   }
  
   .sidebar {
-    height: 100%;
+    height: 90%;
     width: 10%;
-    position: fixed;
+   
     z-index: 1;
     top: 0;
+    float:left;
     left: 0;
     background-color:
+    
     
     #203344;
     overflow: hidden;
@@ -103,9 +105,9 @@ body {
   
   /* Style sidebar links */
    .sidebar a {
-    padding: 20%;
+
     text-decoration: none;
-    font-size: 36px;
+    font-size: 28px;
     font-style: oblique;
     color: #818181;
     display: block;
@@ -113,6 +115,9 @@ body {
     border-style:solid;
     border-color: #000;
     text-align: center;
+    height: 25%;
+    width: 100%;
+    
   }
   
   
@@ -120,11 +125,11 @@ body {
     color: black;
     background-color:#FFE4C4;
   }
-  .sidebar img{
-      
-      width: 100%;
-      height: 5%;
-     
+  .sidebar a img{
+     margin-top: 5%;
+      height: 60%;
+      width: 80%;
+
     
   }
  
@@ -137,8 +142,8 @@ body {
     
 
     .content{
-        position: fixed;
-        top: 5%;
+    
+       
         margin: 0;
         padding:0;
         width: 90%;
@@ -146,10 +151,10 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 10%;
+       
         background-image: url(images/765443.jpg);
         background-size: 100% 100%;
-        bottom: 5%;
+        
     }
 
         .fullName{
@@ -281,8 +286,8 @@ body {
         }
 
     .footer{
-        position: fixed;
-        bottom: 0;
+       
+       
         height: 5%;
         width: 100%;
     
@@ -291,7 +296,7 @@ body {
         font-family: 'Montserrat';
         font-size: larger;
         
-        margin-left: 10%;
+       
         
       
     }

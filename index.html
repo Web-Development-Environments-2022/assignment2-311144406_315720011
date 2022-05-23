@@ -23,15 +23,7 @@
 		
 		</div>
 
-		<div class="sidebar">
-			
 	
-			<a onclick="showWelcome()"><img src="images/home.png">welcome</a>
-			<a onclick="showRegistration()"><img src="images/edit.png">Register</a>
-			<a onclick="showLogIn()"><img src="images/user.png">Log In</a>
-			<a onclick="openAbout()"><img src="images/information-button.png">About</a>
-		
-		</div> 
 	
 
 		<dialog id="About" class="About">
@@ -65,184 +57,196 @@
 			<button onclick="closeConclude()" class="but-config-conclude">Close</button>
 			<button onclick="tryAgain()" class="but-config-conclude">Try Again</button>
 		</dialog>
-
-		<div class="content">
-			<div class="page" id="welcome" style="display: none;">
-				<h1 class="welcome-header">
-
-					Welcome to Pa<span>C</span>man
-					<div class="pacman">
-						<div class="pacman__eye"></div>
-						<div class="pacman__mouth"></div>
-						<div class="pacman__food"></div>
-					  </div>
-
-				</h1>
-				<button onclick="showLogIn()" class="glow-on-hover">Log In</button>
-				<br/>
-				<br/>
-				<br/>
-				<button onclick="showRegistration()" class="glow-on-hover">Register</button>
-			</div>
-
-			<div class="register" id="register" style="display: none;">
-				<form id="registerForm" name="registerForm" action='javascript:register()'>
-					<h1 style="text-align: center;">Register</h1>
-					<input id="regUsername" name="regUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
-					<input id="regPassword" name="regPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
-					<input id="regFullName" name="regFullName" class="input-box" type="text" placeholder="Your Full name" autocomplete="off"/>
-					<input id="regEmail" name="regEmail" class="input-box" type="text" placeholder="Your Email" autocomplete="off"/>
-					<input id="refBirthDate" name="refBirthDate" class="input-box"  placeholder="Your BirthDate" autocomplete="off"/>
-					<input type="submit" class="submit" value="Submit" onclick="register()"/>
-				</form>	
-			</div>
-
-			<div class="login" id="login" style="display: none;">
-				<h1 style="text-align: center;">Login</h1>
-				<div>
-					<input id="logUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
-				</div>
-				<div>
-					<input id="logPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
-				</div>
-				<button onclick="login()" class="submit">Log In</button>
-			</div>
-
-			<div class="config" id="config" style="display: none;">
-				<div>
-					<h1>Game Configurations</h1>
-					<div>
-						<h2>Change Movement Keys:</h2>
-					</div>
-					<div>
-						<label for="changeKeyUp">Key for Up:</label>
-						<input id="changeKeyUp" class="input-box-config" value="Up" type="button" onclick="changeKeyUp()" autocomplete="off"/>
-					</div>
-					<div>
-						<label for="changeKeyUp">Key for Down:</label>
-						<input id="changeKeyDown" class="input-box-config" value="Down" type="button" onclick="changeKeyDown()" autocomplete="off" />
-					</div>
-					<div>
-						<label for="changeKeyUp">Key for Left:</label>
-						<input id="changeKeyLeft" class="input-box-config" value="Left" type="button" onclick="changeKeyLeft()" autocomplete="off"/>
-					</div>
-					<div>
-						<label for="changeKeyUp">Key for Right:</label>
-						<input id="changeKeyRight" class="input-box-config" value="Right" type="button" onclick="changeKeyRight()" autocomplete="off"/>
-					</div>
-				</div>
-				<br>
-
-				<div>
-					<h2>Change Ball Color:</h2>
-				</div>
-				<div>
-					<input id="color60Ball" class="input-box-config-ball"  value="Legendary" type="button" onclick="changeColor60()" autocomplete="off"/>
-					<input id="color30Ball" class="input-box-config-ball"  value="Rare" type="button" onclick="changeColor30()" autocomplete="off"/>
-					<input id="color10Ball" class="input-box-config-ball"  value="Common" type="button" onclick="changeColor10()" autocomplete="off"/>
-				</div>
-				<br>
-				<div>
-					<label for="ballAmount">Ball Amount:</label>
-					<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" onkeyup="enforceMinMax(this)" autocomplete="off"/>
-				</div>
-				<div>
-					<label for="gameTime">Time (in seconds):</label>
-					<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" onkeyup="enforceMinMax(this)" autocomplete="off"/>
-				</div>
-				<div>
-					<label for="mobAmount">Number of Mobs:</label>
-					<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" onkeyup="enforceMinMax(this)" autocomplete="off" />
-				</div>
-				<br>
-
-				<button onclick="saveConfig()" class="but-config">Save Configurations</button>
-				<button onclick="RandomConfig()" class="but-config">Randomize</button>
+		<div class ="middle">
+			<div class="sidebar">
 				
-			</div>
+		
+				<a onclick="showWelcome()"><img src="images/home.png">welcome</a>
+				<a onclick="showRegistration()"><img src="images/edit.png">Register</a>
+				<a onclick="showLogIn()"><img src="images/user.png">Log In</a>
+				<a onclick="openAbout()"><img src="images/information-button.png">About</a>
+			
+			</div> 
+		
 
+			<div class="content">
+				
+				<div class="page" id="welcome" style="display: none;">
+					<h1 class="welcome-header">
 
+						Welcome to Pa<span>C</span>man
+						<div class="pacman">
+							<div class="pacman__eye"></div>
+							<div class="pacman__mouth"></div>
+							<div class="pacman__food"></div>
+						</div>
 
-
-			<div id="game" class="game" style="display: none;">
-
-				<div class="gameDetails">
-					<h1 id="fullName"></h1>
-
-					<div>
-						<label for="changeKey">Movement Keys:</label>
-					</div>
-					<div>
-						<label for="InfoKeyUp">Key for Up:</label>
-						<input id="InfoKeyUp" class="input-box-config" value="Up" type="button" autocomplete="off" />
-					</div>
-					<div>
-						<label for="InfoKeyDown">Key for Down:</label> 
-						<input id="InfoKeyDown" class="input-box-config"  value="Down" type="button"   autocomplete="off"/>
-					</div>
-					<div>
-						<label for="InfoKeyLeft">Key for Left:</label>
-						<input id="InfoKeyLeft" class="input-box-config"  value="Left" type="button"  autocomplete="off"/>
-					</div>
-					<div>
-						<label for="InfoKeyRight">Key for Right:</label>
-						<input id="InfoKeyRight" class="input-box-config"  value="Right" type="button" autocomplete="off" />
-					</div>
-					<br>
-
-					<div>
-						<label for="changeColor">Ball Color:</label>
-					</div>
+					</h1>
+					<button onclick="showLogIn()" class="glow-on-hover">Log In</button>
 					<br/>
+					<br/>
+					<br/>
+					<button onclick="showRegistration()" class="glow-on-hover">Register</button>
+				</div>
+
+				<div class="register" id="register" style="display: none;">
+					<form id="registerForm" name="registerForm" action='javascript:register()'>
+						<h1 style="text-align: center;">Register</h1>
+						<input id="regUsername" name="regUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
+						<input id="regPassword" name="regPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
+						<input id="regFullName" name="regFullName" class="input-box" type="text" placeholder="Your Full name" autocomplete="off"/>
+						<input id="regEmail" name="regEmail" class="input-box" type="text" placeholder="Your Email" autocomplete="off"/>
+						<input id="refBirthDate" name="refBirthDate" class="input-box"  placeholder="Your BirthDate" autocomplete="off"/>
+						<input type="submit" class="submit" value="Submit" onclick="register()"/>
+					</form>	
+				</div>
+
+				<div class="login" id="login" style="display: none;">
+					<h1 style="text-align: center;">Login</h1>
 					<div>
-						<input id="Infocolor60Ball" class="input-box-game-config-ball" value="Legendary" type="button" autocomplete="off"/>
-						<input id="Infocolor30Ball" class="input-box-game-config-ball" value="Rare" type="button" autocomplete="off"/>
-						<input id="Infocolor10Ball" class="input-box-game-config-ball" value="Common" type="button" autocomplete="off"/>
-					</div>	
+						<input id="logUsername" class="input-box" type="text" placeholder="Your Username" autocomplete="off"/>
+					</div>
+					<div>
+						<input id="logPassword" class="input-box" type="text" placeholder="Your Password" autocomplete="off"/>
+					</div>
+					<button onclick="login()" class="submit">Log In</button>
+				</div>
+
+				<div class="config" id="config" style="display: none;">
+					<div>
+						<h1>Game Configurations</h1>
+						<div>
+							<h2>Change Movement Keys:</h2>
+						</div>
+						<div>
+							<label for="changeKeyUp">Key for Up:</label>
+							<input id="changeKeyUp" class="input-box-config" value="Up" type="button" onclick="changeKeyUp()" autocomplete="off"/>
+						</div>
+						<div>
+							<label for="changeKeyUp">Key for Down:</label>
+							<input id="changeKeyDown" class="input-box-config" value="Down" type="button" onclick="changeKeyDown()" autocomplete="off" />
+						</div>
+						<div>
+							<label for="changeKeyUp">Key for Left:</label>
+							<input id="changeKeyLeft" class="input-box-config" value="Left" type="button" onclick="changeKeyLeft()" autocomplete="off"/>
+						</div>
+						<div>
+							<label for="changeKeyUp">Key for Right:</label>
+							<input id="changeKeyRight" class="input-box-config" value="Right" type="button" onclick="changeKeyRight()" autocomplete="off"/>
+						</div>
+					</div>
 					<br>
 
 					<div>
-						<label for="InfoballAmount">Ball Amount:</label>
-						<input id="InfoballAmount"  class="input-box-config"  type="button" value="60" autocomplete="off"/>
+						<h2>Change Ball Color:</h2>
 					</div>
 					<div>
-						<label for="InfogameTime">Total Game Time:</label>
-						<input id="InfogameTime" class="input-box-config"  type="button" value="300" autocomplete="off"/>
+						<input id="color60Ball" class="input-box-config-ball"  value="Legendary" type="button" onclick="changeColor60()" autocomplete="off"/>
+						<input id="color30Ball" class="input-box-config-ball"  value="Rare" type="button" onclick="changeColor30()" autocomplete="off"/>
+						<input id="color10Ball" class="input-box-config-ball"  value="Common" type="button" onclick="changeColor10()" autocomplete="off"/>
+					</div>
+					<br>
+					<div>
+						<label for="ballAmount">Ball Amount:</label>
+						<input id="ballAmount" class="input-box-config" type="number" value="60" min="50" max="90" onkeyup="enforceMinMax(this)" autocomplete="off"/>
 					</div>
 					<div>
-						<label for="InfomobAmount">Number of Mobs:</label>
-						<input id="InfomobAmount" class="input-box-config"  type="button" value="2" autocomplete="off"/>
+						<label for="gameTime">Time (in seconds):</label>
+						<input id="gameTime" class="input-box-config" type="number" value="300" min="60" max="3600" onkeyup="enforceMinMax(this)" autocomplete="off"/>
 					</div>
+					<div>
+						<label for="mobAmount">Number of Mobs:</label>
+						<input id="mobAmount" class="input-box-config" type="number" value="2" min="1" max="4" onkeyup="enforceMinMax(this)" autocomplete="off" />
+					</div>
+					<br>
+
+					<button onclick="saveConfig()" class="but-config">Save Configurations</button>
+					<button onclick="RandomConfig()" class="but-config">Randomize</button>
 					
 				</div>
 
 
 
-				<div class="data">
-					<div id="score" >
-						<label for="lblScore">SCORE:</label>
-						<input id="lblScore" class="input-box-config" type="text" autocomplete="off"/>
+
+				<div id="game" class="game" style="display: none;">
+
+					<div class="gameDetails">
+						<h1 id="fullName"></h1>
+
+						<div>
+							<label for="changeKey">Movement Keys:</label>
+						</div>
+						<div>
+							<label for="InfoKeyUp">Key for Up:</label>
+							<input id="InfoKeyUp" class="input-box-config" value="Up" type="button" autocomplete="off" />
+						</div>
+						<div>
+							<label for="InfoKeyDown">Key for Down:</label> 
+							<input id="InfoKeyDown" class="input-box-config"  value="Down" type="button"   autocomplete="off"/>
+						</div>
+						<div>
+							<label for="InfoKeyLeft">Key for Left:</label>
+							<input id="InfoKeyLeft" class="input-box-config"  value="Left" type="button"  autocomplete="off"/>
+						</div>
+						<div>
+							<label for="InfoKeyRight">Key for Right:</label>
+							<input id="InfoKeyRight" class="input-box-config"  value="Right" type="button" autocomplete="off" />
+						</div>
+						<br>
+
+						<div>
+							<label for="changeColor">Ball Color:</label>
+						</div>
+						<br/>
+						<div>
+							<input id="Infocolor60Ball" class="input-box-game-config-ball" value="Legendary" type="button" autocomplete="off"/>
+							<input id="Infocolor30Ball" class="input-box-game-config-ball" value="Rare" type="button" autocomplete="off"/>
+							<input id="Infocolor10Ball" class="input-box-game-config-ball" value="Common" type="button" autocomplete="off"/>
+						</div>	
+						<br>
+
+						<div>
+							<label for="InfoballAmount">Ball Amount:</label>
+							<input id="InfoballAmount"  class="input-box-config"  type="button" value="60" autocomplete="off"/>
+						</div>
+						<div>
+							<label for="InfogameTime">Total Game Time:</label>
+							<input id="InfogameTime" class="input-box-config"  type="button" value="300" autocomplete="off"/>
+						</div>
+						<div>
+							<label for="InfomobAmount">Number of Mobs:</label>
+							<input id="InfomobAmount" class="input-box-config"  type="button" value="2" autocomplete="off"/>
+						</div>
+						
 					</div>
-					<div id="time">
-						<label for="timeLeft">TIME:</label>
-						<input id="timeLeft"  class="input-box-config" type="text" autocomplete="off"/>
+
+
+
+					<div class="data">
+						<div id="score" >
+							<label for="lblScore">SCORE:</label>
+							<input id="lblScore" class="input-box-config" type="text" autocomplete="off"/>
+						</div>
+						<div id="time">
+							<label for="timeLeft">TIME:</label>
+							<input id="timeLeft"  class="input-box-config" type="text" autocomplete="off"/>
+						</div>
+						<div>
+							<label for="ballNumber">BALLS:</label>
+							<input id="ballNumber"  class="input-box-config" type="text" autocomplete="off"/>
+						</div>
+						<div>
+							<label for="livesLeft">LIVES:</label>
+							<input id="livesLeft"  class="input-box-config" type="text" autocomplete="off"/>
+						</div>
 					</div>
-					<div>
-						<label for="ballNumber">BALLS:</label>
-						<input id="ballNumber"  class="input-box-config" type="text" autocomplete="off"/>
-					</div>
-					<div>
-						<label for="livesLeft">LIVES:</label>
-						<input id="livesLeft"  class="input-box-config" type="text" autocomplete="off"/>
+					<div id="board">
+						<canvas id="canvas" height="600" width="1200"></canvas>
 					</div>
 				</div>
-				<div id="board">
-					<canvas id="canvas" height="600" width="1200"></canvas>
-				</div>
+
 			</div>
-
 		</div>
-
 		<div class="footer">
 			<div class="logo-container"><h1>2022 All Copyrights reserved to Tomer and Omer inc.</h1></div>
 			<div class="info">Contact us &#128231;: omermaimon2@gmail.com</div>

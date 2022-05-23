@@ -612,10 +612,14 @@ async function UpdatePosition() {
 	if (ballLeft == 0) {
 		Draw();
 		window.clearInterval(interval);
+		$("#conclusiontitle").text("Winner!!!");
 		conclude();
 	}
 	else if(time_remaining <= 0){
-		coclude();
+		Draw();
+		window.clearInterval(interval);
+		$("#conclusiontitle").text("Loser!");
+		conclude();
 	}
 	else {
 		Draw();

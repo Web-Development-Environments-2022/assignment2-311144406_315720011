@@ -3,6 +3,9 @@ var context;
 //Game Board
 var pacman = new Object();
 
+var wallImg = new Image();
+wallImg.src =  'images/wall.jpg';
+
 var prize = new Object();
 prize.img = new Image();
 prize.img.src =  'images/prize.png';
@@ -450,7 +453,8 @@ function Draw() {
 				break;
 				//wall
 				case(5):{
-					draWall(context, center.x - 30, center.y - 30, 60, 60, 15)
+					context.drawImage(wallImg, center.x - 30, center.y - 30, 60, 60);
+					// draWall(context, center.x - 30, center.y - 30, 60, 60, 15)
 				}
 				break;
 				//prize
@@ -979,9 +983,6 @@ $(document).ready(function() {
 		// 	}
 		// },
 	});
-
-
-
 });
 
 function showLogIn() {

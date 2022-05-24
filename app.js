@@ -131,7 +131,7 @@ async function InitiateGame() {
 	score = 0;
 	pacman.color = "yellow";
 	ballLeft = ballAmount;
-	lives = 2; // CHANGE
+	lives = 5;
 	direction = 1;
 	start_time = new Date();
 	var currentTime = new Date();
@@ -491,6 +491,7 @@ async function UpdatePosition() {
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	time_remaining = Math.floor(gameTime - time_elapsed);
+	ballLeft = Math.max(countballs(), ballLeft);
 	board[pacman.i][pacman.j] = 0;
 	handlePacMove();
 	handlePacPosition(board[pacman.i][pacman.j]);
@@ -692,10 +693,14 @@ function handlePacPosition(num){
 		break;
 		case(6):{
 			eatPrize();
+			handlePacPosition(boardMemory[6]);
+			boardMemory[6] = 0;
 		}
 		break;
 		case(7):{
 			eatLemon();
+			handlePacPosition(boardMemory[7]);
+			boardMemory[7] = 0;
 		}
 		break;
 		case(8):{
@@ -763,7 +768,6 @@ function eatPrize(){
 	pacFruitAudio.play();
 	prize.alive = false;
 	prize.deathTimer = new Date();
-	handlePacPosition(boardMemory[6]);
 	score += 50;
 }
 
@@ -772,7 +776,6 @@ function eatLemon(){
 	pacFruitAudio.play();
 	lemon.alive = false;
 	lemon.deathTimer = new Date();
-	handlePacPosition(boardMemory[7]);
 	startFrenzy();
 }
 

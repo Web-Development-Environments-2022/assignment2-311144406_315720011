@@ -448,12 +448,7 @@ body {
     .About {
         display: none; 
         position: fixed; 
-        z-index: 1; 
-        top: 10vh;
-        left: 30vw;
-        padding: 0;
-        width: 50vw; 
-        height: 40vh;  
+        z-index: 2; 
       }
       
       .modal-content {

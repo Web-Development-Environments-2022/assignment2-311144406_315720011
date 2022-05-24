@@ -89,7 +89,7 @@ var pacFruitAudio = new Audio('sounds/pacFruit.wav');
 var frenzyAudio = new Audio('sounds/frenzy.mp3');
 var eatGhostAudio = new Audio('sounds/eatGhost.wav');
 var teleportAudio = new Audio('sounds/teleport.mp3');
-var music = new Audio('sounds/Time.wav');
+var music = new Audio('sounds/Time.mp3');
 
 //DOM Control
 var currElement;
@@ -310,6 +310,7 @@ function clearFreeCells(){
 		for (var j = 0; j < 10; j++) {
 			if (board[i][j] > 5 ){
 				board[i][j] = boardMemory[board[i][j]];
+				boardMemory[board[i][j]] = 0;
 			}
 		}
 	}
